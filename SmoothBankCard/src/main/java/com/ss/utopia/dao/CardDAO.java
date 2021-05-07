@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.ss.utopia.de.Card;
+import com.ss.utopia.de.CardType;
 
 /**
  * @author Parker W.
@@ -74,6 +75,7 @@ public class CardDAO extends AbstractDAO<Card> {
 			tempCard.setCashback(rs.getDouble("cashback"));
 			tempCard.setCsv(rs.getInt("csv"));
 			tempCard.setId(rs.getInt("id"));
+			tempCard.getCardType().setType(CardType.Type.valueOf(rs.getString("cardType")));
 			cards.add(tempCard);
 
 		}

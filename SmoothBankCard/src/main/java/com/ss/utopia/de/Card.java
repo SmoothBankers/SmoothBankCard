@@ -12,6 +12,7 @@ public class Card {
 	private Double cashback;
 	private Account account = new Account(); // A blank, "default" account represents a demo card used just to show
 												// cards on offer
+	private CardType cardType;
 	private boolean active;
 
 	/**
@@ -105,6 +106,7 @@ public class Card {
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
 		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((balance == null) ? 0 : balance.hashCode());
+		result = prime * result + ((cardType == null) ? 0 : cardType.hashCode());
 		result = prime * result + ((cashback == null) ? 0 : cashback.hashCode());
 		result = prime * result + ((csv == null) ? 0 : csv.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -132,6 +134,11 @@ public class Card {
 				return false;
 		} else if (!balance.equals(other.balance))
 			return false;
+		if (cardType == null) {
+			if (other.cardType != null)
+				return false;
+		} else if (!cardType.equals(other.cardType))
+			return false;
 		if (cashback == null) {
 			if (other.cashback != null)
 				return false;
@@ -155,44 +162,61 @@ public class Card {
 		return "Card [" + (id != null ? "id=" + id + ", " : "") + (csv != null ? "csv=" + csv + ", " : "")
 				+ (balance != null ? "balance=" + balance + ", " : "")
 				+ (cashback != null ? "cashback=" + cashback + ", " : "")
-				+ (account != null ? "account=" + account + ", " : "") + "active=" + active + "]";
+				+ (account != null ? "account=" + account + ", " : "")
+				+ (cardType != null ? "cardType=" + cardType + ", " : "") + "active=" + active + "]";
 	}
-	
+
 	public Integer generateCode() {
-		//TODO
-		
+		// TODO
+
 		/**
-		 * TODO- According to https://en.wikipedia.org/wiki/Payment_card_number :
-		 * Cards have a number from 8-19 digits in length,
-		 * 6-8 digits of the issuer identification number, digit one is the major industry identifier (visa, master, chase, etc.)
-		 * 	thus it is [MII][IIN]
-		 * Individual account identifier up to 12 digits in length, this is the number of the account tied to the card
+		 * TODO- According to https://en.wikipedia.org/wiki/Payment_card_number : Cards
+		 * have a number from 8-19 digits in length, 6-8 digits of the issuer
+		 * identification number, digit one is the major industry identifier (visa,
+		 * master, chase, etc.) thus it is [MII][IIN] Individual account identifier up
+		 * to 12 digits in length, this is the number of the account tied to the card
 		 * Single check digit determined using the Luhn Algorithm
 		 */
-		
+
 		/**
-		 * Luhn algorithm, a.k.a mod10 algorithm
-		 * from right to left: double every second digit with the digit to the left of the check being the first to be doubled
-		 * if this results in a number greater than 9 then add the digits together or subtract 9 (result is the same)
-		 * take the sum of all digits INCLUDING check digit
-		 * number is valid if sum % 10 == 0
+		 * Luhn algorithm, a.k.a mod10 algorithm from right to left: double every second
+		 * digit with the digit to the left of the check being the first to be doubled
+		 * if this results in a number greater than 9 then add the digits together or
+		 * subtract 9 (result is the same) take the sum of all digits INCLUDING check
+		 * digit number is valid if sum % 10 == 0
 		 * 
-		 * The check digit (x) is obtained by computing the sum of the sum digits then computing 9 times that value modulo 10
-		 * I.E, ( (sum w/o check digit) * 9) % 10 == checkDigit
+		 * The check digit (x) is obtained by computing the sum of the sum digits then
+		 * computing 9 times that value modulo 10 I.E, ( (sum w/o check digit) * 9) % 10
+		 * == checkDigit
 		 */
-		
+
 		/**
-		 * The card will NOT be assigned a number randomly, thus an auto-generated key is not to be expected. The unique number is
-		 * provided for entry.
+		 * The card will NOT be assigned a number randomly, thus an auto-generated key
+		 * is not to be expected. The unique number is provided for entry.
 		 */
-		
-		//final Integer MII = 4;
-		//final Integer IIN = 57203;	//Arbitrary for now, just make sure there's no conflict with an existing IIN if changed
-		//Integer acn = this.account.getNumber();
-		//getCheckDigit logic
-		//return MII|IIN|ACN|CKD
+
+		// final Integer MII = 4;
+		// final Integer IIN = 57203; //Arbitrary for now, just make sure there's no
+		// conflict with an existing IIN if changed
+		// Integer acn = this.account.getNumber();
+		// getCheckDigit logic
+		// return MII|IIN|ACN|CKD
 		return null;
-		
+
+	}
+
+	/**
+	 * @return the cardType
+	 */
+	public CardType getCardType() {
+		return cardType;
+	}
+
+	/**
+	 * @param cardType the cardType to set
+	 */
+	public void setCardType(CardType cardType) {
+		this.cardType = cardType;
 	}
 
 }
