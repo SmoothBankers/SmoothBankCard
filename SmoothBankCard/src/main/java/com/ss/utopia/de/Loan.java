@@ -1,20 +1,20 @@
-/**
- * 
- */
 package com.ss.utopia.de;
 
-/**
- * @author Parker W.
- *
- */
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="loan")
 public class Loan {
 
+	@Id
 	private Integer id;
-	private LoanType type = new LoanType();
 	private Double balance;
-	private Double rate;
-	private String title;
-	private String description;
+
+	@ManyToOne
+	private LoanType type;
 
 	/**
 	 * @return the id
@@ -28,20 +28,6 @@ public class Loan {
 	 */
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public LoanType getType() {
-		return type;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(LoanType type) {
-		this.type = type;
 	}
 
 	/**
@@ -59,45 +45,17 @@ public class Loan {
 	}
 
 	/**
-	 * @return the rate
+	 * @return the type
 	 */
-	public Double getRate() {
-		return rate;
+	public LoanType getType() {
+		return type;
 	}
 
 	/**
-	 * @param rate the rate to set
+	 * @param type the type to set
 	 */
-	public void setRate(Double rate) {
-		this.rate = rate;
-	}
-
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
+	public void setType(LoanType type) {
+		this.type = type;
 	}
 
 	@Override
@@ -105,10 +63,7 @@ public class Loan {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((balance == null) ? 0 : balance.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
@@ -127,25 +82,10 @@ public class Loan {
 				return false;
 		} else if (!balance.equals(other.balance))
 			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (rate == null) {
-			if (other.rate != null)
-				return false;
-		} else if (!rate.equals(other.rate))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
 			return false;
 		if (type == null) {
 			if (other.type != null)
@@ -157,10 +97,8 @@ public class Loan {
 
 	@Override
 	public String toString() {
-		return "Loan [" + (id != null ? "id=" + id + ", " : "") + (type != null ? "type=" + type + ", " : "")
-				+ (balance != null ? "balance=" + balance + ", " : "") + (rate != null ? "rate=" + rate + ", " : "")
-				+ (title != null ? "title=" + title + ", " : "")
-				+ (description != null ? "description=" + description : "") + "]";
+		return "Loan [" + (id != null ? "id=" + id + ", " : "") + (balance != null ? "balance=" + balance + ", " : "")
+				+ (type != null ? "type=" + type : "") + "]";
 	}
 
 }

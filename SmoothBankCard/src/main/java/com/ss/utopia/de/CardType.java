@@ -1,43 +1,45 @@
 package com.ss.utopia.de;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "CARDTYPE")
 public class CardType {
 
-	public enum Type {
-		credit, debit;
-	}
-
-	private Double interestRate;
-	private Boolean cashBackCapable;
+	@Id
+	private Integer id;
+	private String title;
 	private String description;
-	private String name;
-	private Type type;
+	private Double rate;
 
 	/**
-	 * @return the interestRate
+	 * @return the id
 	 */
-	public Double getInterestRate() {
-		return interestRate;
+	public Integer getId() {
+		return id;
 	}
 
 	/**
-	 * @param interestRate the interestRate to set
+	 * @param id the id to set
 	 */
-	public void setInterestRate(Double interestRate) {
-		this.interestRate = interestRate;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	/**
-	 * @return the cashBackCapable
+	 * @return the title
 	 */
-	public Boolean getCashBackCapable() {
-		return cashBackCapable;
+	public String getTitle() {
+		return title;
 	}
 
 	/**
-	 * @param cashBackCapable the cashBackCapable to set
+	 * @param title the title to set
 	 */
-	public void setCashBackCapable(Boolean cashBackCapable) {
-		this.cashBackCapable = cashBackCapable;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/**
@@ -55,42 +57,27 @@ public class CardType {
 	}
 
 	/**
-	 * @return the name
+	 * @return the rate
 	 */
-	public String getName() {
-		return name;
+	public Double getRate() {
+		return rate;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param rate the rate to set
 	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public Type getType() {
-		return type;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(Type type) {
-		this.type = type;
+	public void setRate(Double rate) {
+		this.rate = rate;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cashBackCapable == null) ? 0 : cashBackCapable.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((interestRate == null) ? 0 : interestRate.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
 
@@ -103,37 +90,34 @@ public class CardType {
 		if (getClass() != obj.getClass())
 			return false;
 		CardType other = (CardType) obj;
-		if (cashBackCapable == null) {
-			if (other.cashBackCapable != null)
-				return false;
-		} else if (!cashBackCapable.equals(other.cashBackCapable))
-			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (interestRate == null) {
-			if (other.interestRate != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!interestRate.equals(other.interestRate))
+		} else if (!id.equals(other.id))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (rate == null) {
+			if (other.rate != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!rate.equals(other.rate))
 			return false;
-		if (type != other.type)
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "CardType [" + (interestRate != null ? "interestRate=" + interestRate + ", " : "")
-				+ (cashBackCapable != null ? "cashBackCapable=" + cashBackCapable + ", " : "")
+		return "CardType [" + (id != null ? "id=" + id + ", " : "") + (title != null ? "title=" + title + ", " : "")
 				+ (description != null ? "description=" + description + ", " : "")
-				+ (name != null ? "name=" + name + ", " : "") + (type != null ? "type=" + type : "") + "]";
+				+ (rate != null ? "rate=" + rate : "") + "]";
 	}
 
 }
