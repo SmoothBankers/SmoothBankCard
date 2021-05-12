@@ -8,10 +8,13 @@ import CardTypeRender from './CardTypeRender';
 
 const CardTypeContainer = (props) => {
 
+    const { actions } = props; 
+
     useEffect(() => {
-        const { actions } = props;
         actions.readCardTypes();
-    }, [] );
+        actions.getTestResults();
+        // eslint-disable-next-line
+    }, [actions.readCardTypes, actions.getTestResults] );
 
    
     return(
