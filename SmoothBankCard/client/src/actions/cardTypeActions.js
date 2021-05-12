@@ -6,7 +6,7 @@ export const readCardTypes = () => {
   return dispatch => {
       dispatch(_readCardTypesStarted());
 
-      return axios.get(`http://localhost:8080/api/cardTypes`)
+      return axios.get(`http://localhost:8080/api/cardTypes/`)
       .then(res => {
           dispatch(_readCardTypesSuccess(res));
           
@@ -16,6 +16,22 @@ export const readCardTypes = () => {
           dispatch(_readCardTypesFailed(error));
       });
   };
+}
+
+export const getTestResults = () =>{
+    return dispatch => {
+        dispatch(_readCardTypesStarted());
+  
+        return axios.get(`http://localhost:8080/api/cardTypes/testReactConnection`)
+        .then(res => {
+            dispatch(_readCardTypesSuccess(res));
+            
+        })
+        .catch( (error) => {
+            console.log(error);
+            dispatch(_readCardTypesFailed(error));
+        });
+    };
 }
 
 const _readCardTypesSuccess = (res) => {
