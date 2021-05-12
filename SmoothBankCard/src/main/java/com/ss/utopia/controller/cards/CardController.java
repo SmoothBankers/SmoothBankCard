@@ -10,12 +10,13 @@ import com.ss.utopia.de.cards.Card;
 import com.ss.utopia.service.cards.CardService;
 
 @RestController
+@RequestMapping("/cards")
 public class CardController {
 	
 	@Autowired
 	private CardService service;
 	
-	@RequestMapping("/cards")
+	@RequestMapping("/getAll")
 	public List<Card> getAllCards(){
 		return service.getAllCards();
 	}
