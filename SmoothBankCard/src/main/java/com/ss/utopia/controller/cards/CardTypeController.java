@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ss.utopia.de.cards.CardType;
+import com.ss.utopia.mock.MockData;
 import com.ss.utopia.service.cards.CardTypeService;
 
 @RestController
@@ -22,7 +23,9 @@ public class CardTypeController {
 	@GetMapping("/cardTypes/getAll")
 	@CrossOrigin
 	public List<CardType> getAllCardTypes(){
-		return ctService.getAllCardTypes();
+//		return ctService.getAllCardTypes();
+		//Temporary test just to ensure that data is being sent
+		return MockData.getCardTypeMock();
 	}
 	
 	@RequestMapping(path = "/api/cardTypes/testReactConnection", method = RequestMethod.GET)

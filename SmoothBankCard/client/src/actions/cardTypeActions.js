@@ -5,33 +5,15 @@ import { READ_CARD_TYPES_SUCCESSFUL, READ_CARD_TYPES_FAILURE, READ_CARD_TYPES_PE
 export const readCardTypes = () => {
   return dispatch => {
       dispatch(_readCardTypesStarted());
-
       return axios.get(`http://localhost:8080/api/cardTypes/`)
       .then(res => {
           dispatch(_readCardTypesSuccess(res));
-          
       })
       .catch( (error) => {
           console.log(error);
           dispatch(_readCardTypesFailed(error));
       });
   };
-}
-
-export const getTestResults = () =>{
-    return dispatch => {
-        dispatch(_readCardTypesStarted());
-  
-        return axios.get(`http://localhost:8080/api/cardTypes/testReactConnection`)
-        .then(res => {
-            dispatch(_readCardTypesSuccess(res));
-            
-        })
-        .catch( (error) => {
-            console.log(error);
-            dispatch(_readCardTypesFailed(error));
-        });
-    };
 }
 
 const _readCardTypesSuccess = (res) => {

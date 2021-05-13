@@ -5,16 +5,15 @@ const CardTypeRender = ({ cardTypeData }) => {
 
     function createCardTypeRow(cardType){
         return (
-            <tr key={cardType.id}>
-                <td> {cardType.id} </td>
+            <tr key={cardType.title}>
                 <td> {cardType.title} </td>
                 <td> {cardType.description} </td>
             </tr>
         );
     }
 
-    let content = '';
-
+    let content = '';    
+ 
     if(!cardTypeData || cardTypeData.requestPending){
         content = (
             <div className="d-flex justify-content-center">
@@ -26,20 +25,25 @@ const CardTypeRender = ({ cardTypeData }) => {
     }
     
 
-    if(cardTypeData && cardTypeData.requestSucessful){
+    if(cardTypeData && cardTypeData.requestSuccessful){
+        const info = cardTypeData.types._embedded.cardTypes;
+        console.log(info);
         content = 
-            (<table className="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {cardTypeData.types.map((cardType) => createCardTypeRow(cardType))}
-                </tbody>    
-            </table>)
+            (
+            <div>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { info.map(type => ( createCardTypeRow(type) ) ) }
+                    </tbody>    
+                </table>  
+            </div>
+            );
     }
 
     if(cardTypeData && cardTypeData.requestFailed){
@@ -55,6 +59,7 @@ const CardTypeRender = ({ cardTypeData }) => {
         <div>
             <h1>Card Types</h1>
             {content}
+            <h1> This goes after content </h1>
         </div>
     );
 }

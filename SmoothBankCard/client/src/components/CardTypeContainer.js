@@ -12,9 +12,8 @@ const CardTypeContainer = (props) => {
 
     useEffect(() => {
         actions.readCardTypes();
-        actions.getTestResults();
         // eslint-disable-next-line
-    }, [actions.readCardTypes, actions.getTestResults] );
+    }, [actions.readCardTypes] );
 
    
     return(
