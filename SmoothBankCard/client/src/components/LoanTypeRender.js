@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardTypeRender = ({ cardTypeData }) => {
+const LoanTypeRender = ({ loanTypeData }) => {
 
-    function createCardTypeRow(cardType){
+    function createLoanTypeRow(loanType){
         return (
-            <tr key={cardType.title}>
-                <td> {cardType.title} </td>
-                <td> {cardType.description} </td>
+            <tr key={loanType.title}>
+                <td> {loanType.title} </td>
+                <td> {loanType.description} </td>
             </tr>
         );
     }
 
     let content = '';    
  
-    if(!cardTypeData || cardTypeData.requestPending){
+    if(!loanTypeData || loanTypeData.requestPending){
         content = (
             <div className="d-flex justify-content-center">
                 <div className="spinner-border" role="status">
@@ -25,8 +25,8 @@ const CardTypeRender = ({ cardTypeData }) => {
     }
     
 
-    if(cardTypeData && cardTypeData.requestSuccessful){
-        const info = cardTypeData.types._embedded.cardTypes;
+    if(loanTypeData && loanTypeData.requestSuccess){
+        const info = loanTypeData.types._embedded.loanTypes;
         console.log(info);
         content = 
             (
@@ -34,19 +34,19 @@ const CardTypeRender = ({ cardTypeData }) => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Title</th>
+                            <th>Name</th>
                             <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
-                        { info.map(type => ( createCardTypeRow(type) ) ) }
+                        { info.map(type => ( createLoanTypeRow(type) ) ) }
                     </tbody>    
                 </table>  
             </div>
             );
     }
 
-    if(cardTypeData && cardTypeData.requestFailed){
+    if(loanTypeData && loanTypeData.requestFailed){
         content = 
         (
             <div className="alert alert-danger" role="alert">
@@ -57,15 +57,14 @@ const CardTypeRender = ({ cardTypeData }) => {
         
     return(
         <div>
-            <h1>Card Types</h1>
+            <h1>Loan Types</h1>
             {content}
-            <h1> This goes after content </h1>
         </div>
     );
 }
 
-CardTypeRender.propTypes = {
-    cardTypeData: PropTypes.object
+LoanTypeRender.propTypes = {
+    loanTypeData: PropTypes.object
 };
 
-export default CardTypeRender;
+export default LoanTypeRender;
