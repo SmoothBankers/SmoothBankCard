@@ -37,13 +37,14 @@ const LoanTypeRender = ({ loanTypeData }) => {
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
-                            <th> Interest </th>
+                            <th>Interest</th>
                         </tr>
                     </thead>
                     <tbody>
                         { info.map(type => ( createLoanTypeRow(type) ) ) }
                     </tbody>    
-                </table>  
+                </table> 
+                <a href="/">Home</a> 
             </div>
             );
     }
@@ -59,7 +60,7 @@ const LoanTypeRender = ({ loanTypeData }) => {
         
     return(
         <div>
-            <h1>Loan Types</h1>
+            <h1>Here are our different types of loans</h1>
             {content}
         </div>
     );

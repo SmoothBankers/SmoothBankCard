@@ -42,6 +42,7 @@ const CardTypeRender = ({ cardTypeData }) => {
                         { info.map(type => ( createCardTypeRow(type) ) ) }
                     </tbody>    
                 </table>  
+                <a href="/">Home</a> 
             </div>
             );
     }
@@ -57,9 +58,8 @@ const CardTypeRender = ({ cardTypeData }) => {
         
     return(
         <div>
-            <h1>Card Types</h1>
+            <h1>Here are our different types of cards</h1>
             {content}
-            <h1> This goes after content </h1>
         </div>
     );
 }
