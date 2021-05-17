@@ -45,5 +45,6 @@ insert into card (id, csv, balance, cashback, expiryMonth, expiryYear, cardType)
 (6011635835271575, 960, 0.00, 0.00, 2, 2024, 2);
 
 insert into loanType (id, title, description, rate) values
-(1, 'Promotional loan', 'A promotional loan for new accounts with a low rate', 0.01),
-(2, 'VIP Loan','A loan given only to premier members',0.00);
+(1, 'Promotional loan', 'A promotional loan for new accounts with a low rate', 0.03),
+(2, 'VIP Loan','A loan given only to premier members', 0.00),
+(3, 'Standard Loan', 'One of our more poular loans', 0.05);

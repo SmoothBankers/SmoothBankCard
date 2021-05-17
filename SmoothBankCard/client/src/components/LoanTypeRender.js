@@ -8,6 +8,7 @@ const LoanTypeRender = ({ loanTypeData }) => {
             <tr key={loanType.title}>
                 <td> {loanType.title} </td>
                 <td> {loanType.description} </td>
+                <td> {loanType.rate} </td>
             </tr>
         );
     }
@@ -36,6 +37,7 @@ const LoanTypeRender = ({ loanTypeData }) => {
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
+                            <th> Interest </th>
                         </tr>
                     </thead>
                     <tbody>
