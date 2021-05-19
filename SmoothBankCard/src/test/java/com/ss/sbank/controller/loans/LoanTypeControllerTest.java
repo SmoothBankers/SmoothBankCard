@@ -1,4 +1,4 @@
-package com.ss.sbank.controller.cards;
+package com.ss.sbank.controller.loans;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -14,18 +14,18 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CardTypeControllerTest {
+public class LoanTypeControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Test
 	public void getAllCardTypesTest() throws Exception {
-		mockMvc.perform(get("/api/cardTypes")
+		mockMvc.perform(get("/api/loanTypes")
 				.contentType(MediaType.APPLICATION_JSON))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.length()").value(3));
 	}
-
+	
 }

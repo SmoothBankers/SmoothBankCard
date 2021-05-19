@@ -16,7 +16,7 @@
 	<description>Utopia under the SpringBoot framework</description>
 	<properties>
 		<java.version>11</java.version>
-		<start-class>com.ss.utopia.SmoothBankCardApplication</start-class>
+		<start-class>com.ss.sbank.SmoothBankCardApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
