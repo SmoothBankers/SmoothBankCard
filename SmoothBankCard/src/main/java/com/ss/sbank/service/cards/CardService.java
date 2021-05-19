@@ -30,5 +30,12 @@ public class CardService {
 	 * 	Validation -> Double every second digit starting from the right-most check digit, sum all individual digits (12 turns to 3), valid if sum % 10 == 0
 	 *  Calculation -> check digit = ( sum * 9 ) % 10
 	 */
-
+	
+//	public Card createCard(/*Account a*/) {
+//		//TODO: import SmoothBankAccount library
+//		//int accNum = u.getId();
+//		Long cardNum = (long) 4321;
+//		cardNum *= ((long) 1000000000000);	//add 12 spaces for account number
+//		
+//	}
 }
