@@ -27,7 +27,7 @@ const CardTypeRender = ({ cardTypeData }) => {
 
     if(cardTypeData && cardTypeData.requestSuccessful){
         const info = cardTypeData.types._embedded.cardTypes;
-        console.log(info);
+        //console.log(info);
         content = 
             (
             <div>

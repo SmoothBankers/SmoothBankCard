@@ -2,24 +2,19 @@ package com.ss.sbank.de.cards;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "card")
-@Getter
-@Setter
+@Data
 public class Card {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name = "csv")
@@ -28,7 +23,7 @@ public class Card {
 	@Column(name = "expiryMonth")
 	private Integer expiryMonth;
 
-	@Column(name = "expirtYear")
+	@Column(name = "expiryYear")
 	private Integer expiryYear;
 
 	@Column(name = "balance")
@@ -40,8 +35,8 @@ public class Card {
 	@ManyToOne
 	@JoinColumn(name = "cardType")
 	private CardType type;
-
-	// @ManyToOne
-	// private User user;
+	
+	@Column(name = "holderName")
+	private String holderName;
 
 }

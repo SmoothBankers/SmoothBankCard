@@ -18,6 +18,7 @@ create table card(
     cashback decimal,
     expiryMonth int,
     expiryYear int,
+    holderName varchar(45),
 	cardType int,
     foreign key (cardType) references cardType(id)
 );
@@ -40,9 +41,9 @@ insert into cardType (id, title, description, rate) values
 (1, 'Debit card', 'A general use debit card. Transactions withdraw funds from account immediately.', 0.00),
 (2, 'Promo credit card', 'A promotional credit card available to accounts within 6 months of creation.', 0.05);
 
-insert into card (id, csv, balance, cashback, expiryMonth, expiryYear, cardType) values
-(6507016719651110, 940, 0.00, 0.00, 8, 2025, 1),
-(6011635835271575, 960, 0.00, 0.00, 2, 2024, 2);
+insert into card (id, csv, balance, cashback, expiryMonth, expiryYear, holderName, cardType) values
+(6507016719651110, 940, 0.00, 0.00, 8, 2025, 'John Appleseed', 1),
+(6011635835271575, 960, 0.00, 0.00, 2, 2024, 'Abbatha Road', 2);
 
 insert into loanType (id, title, description, rate) values
 (1, 'Promotional loan', 'A promotional loan for new accounts with a low rate', 0.03),
