@@ -58,7 +58,7 @@ public class CardService {
 		id *= 10;
 		id += ((sum * 9) % 10);
 		c.setId(id);
-
+		
 		// if card already exists
 		if (cDAO.existsById(c.getId())) {
 			return cDAO.getOne(c.getId());
@@ -71,6 +71,7 @@ public class CardService {
 		c.setExpiryYear(currCal.get(Calendar.YEAR) + 2);
 		c.setType(type);
 		c.setHolderName(holderName);
+		cDAO.saveAndFlush(c);
 		return c;
 	}
 }

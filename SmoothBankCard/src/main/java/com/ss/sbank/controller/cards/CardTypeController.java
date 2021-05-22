@@ -17,15 +17,12 @@ import com.ss.sbank.service.cards.CardTypeService;
 @RequestMapping("/cardTypes")
 public class CardTypeController {
 	
-	@Autowired
-	private CardTypeService ctService;
+//	@Autowired
+//	private CardTypeService ctService;
 	
-	@GetMapping
-	public ResponseEntity<List<CardType>> getAllCardTypes(){
-		//For some reason, this isn't being called all of a sudden
-		//Think it might be from swapping the class to use RequestMapping as Patrick's suggestion
-		//but can't be sure for now.
-		System.out.println("Called CT Controller getAll");
-		return ctService.getAllCardTypes();
-	}
+//	@GetMapping
+//	public ResponseEntity<List<CardType>> getAllCardTypes(){
+//		System.out.println("Called CT Controller getAll");
+//		return ctService.getAllCardTypes();
+//	}
 }

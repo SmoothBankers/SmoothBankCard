@@ -16,11 +16,11 @@ create table card(
     csv int,
     balance decimal,
     cashback decimal,
-    expiryMonth int,
-    expiryYear int,
-    holderName varchar(45),
-	cardType int,
-    foreign key (cardType) references cardType(id)
+    expiration_month int,
+    expiration_year int,
+    holder_name varchar(45),
+	card_type int,
+    foreign key (card_type) references cardType(id)
 );
 
 create table loanType(
@@ -33,15 +33,15 @@ create table loanType(
 create table loan(
 	id INT primary key,
     balance DECIMAL,
-    loanType int,
-    foreign key (loanType) references loanType(id)
+    loan_type int,
+    foreign key (loan_type) references loanType(id)
 );
 
 insert into cardType (id, title, description, rate) values 
 (1, 'Debit card', 'A general use debit card. Transactions withdraw funds from account immediately.', 0.00),
 (2, 'Promo credit card', 'A promotional credit card available to accounts within 6 months of creation.', 0.05);
 
-insert into card (id, csv, balance, cashback, expiryMonth, expiryYear, holderName, cardType) values
+insert into card (id, csv, balance, cashback, expiration_month, expiration_year, holder_name, card_type) values
 (6507016719651110, 940, 0.00, 0.00, 8, 2025, 'John Appleseed', 1),
 (6011635835271575, 960, 0.00, 0.00, 2, 2024, 'Abbatha Road', 2);
 

@@ -14,15 +14,15 @@ import com.ss.sbank.de.cards.CardType;
 @Service
 public class CardTypeService {
 	
-	@Autowired
-	private CardTypeDAO ctDAO;
-	
-	public ResponseEntity<List<CardType>> getAllCardTypes(){
-		System.out.println("Called CT Service getAll");
-		List<CardType> types = new ArrayList<>();
-		ctDAO.findAll().forEach(types::add);
-		ctDAO.findAll().forEach(System.out::println);
-		return new ResponseEntity<List<CardType>>(types, HttpStatus.OK);
-	}
+//	@Autowired
+//	private CardTypeDAO ctDAO;
+//	
+//	public ResponseEntity<List<CardType>> getAllCardTypes(){
+//		System.out.println("Called CT Service getAll");
+//		List<CardType> types = new ArrayList<>();
+//		ctDAO.findAll().forEach(types::add);
+//		ctDAO.findAll().forEach(System.out::println);
+//		return new ResponseEntity<List<CardType>>(types, HttpStatus.OK);
+//	}
 
 }
