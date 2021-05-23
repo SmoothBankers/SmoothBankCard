@@ -12,7 +12,7 @@ class CardContainer extends React.Component{
         super(props);
         
         this.state = {
-            cardType: '',
+            cardType: 0,
             holderName: '',
             accountNumber: 0
         };
@@ -58,16 +58,13 @@ class CardContainer extends React.Component{
     }
 
     render(){
-
-       //TODO: Get all the CardTypes and put them in a dropdown list
-
         return(
             <div>
                 <CardTypeContainer />
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             CardType:
-                            <input type="text" value={this.state.cardType} onChange={this.handleChange} />
+                            <input type="number" value={this.state.cardType} onChange={this.handleChange} />
                         </label>
                         <br />
                         <label>

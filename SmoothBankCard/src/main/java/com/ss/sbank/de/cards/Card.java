@@ -19,8 +19,8 @@ import lombok.Data;
 public class Card {
 
 	@Id
-//	@GenericGenerator(name = "card_id", strategy = "com.ss.sbank.IDGenerator.IDGenerator")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GenericGenerator(name = "card_id", strategy = "com.ss.sbank.generator.IDGenerator")
+	@GeneratedValue(generator="card_id")
 	private Long id;
 
 	@Column(name = "csv")

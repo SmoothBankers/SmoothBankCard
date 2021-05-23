@@ -14,15 +14,15 @@ import com.ss.sbank.service.cards.CardTypeService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/cardTypes")
+@RequestMapping("/api/cardTypes")
 public class CardTypeController {
 	
-//	@Autowired
-//	private CardTypeService ctService;
+	@Autowired
+	private CardTypeService ctService;
 	
-//	@GetMapping
-//	public ResponseEntity<List<CardType>> getAllCardTypes(){
-//		System.out.println("Called CT Controller getAll");
-//		return ctService.getAllCardTypes();
-//	}
+	@GetMapping
+	public ResponseEntity<List<CardType>> getAllCardTypes(){
+		System.out.println("Called CT Controller getAll");
+		return ctService.getAllCardTypes();
+	}
 }

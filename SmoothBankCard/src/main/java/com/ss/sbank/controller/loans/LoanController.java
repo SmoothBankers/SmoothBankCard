@@ -13,7 +13,7 @@ import com.ss.sbank.service.loans.LoanService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/loans")
+@RequestMapping("/api/loans")
 public class LoanController {
 	
 	@Autowired

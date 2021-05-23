@@ -61,7 +61,12 @@ public class CardService {
 		
 		// if card already exists
 		if (cDAO.existsById(c.getId())) {
-			return cDAO.getOne(c.getId());
+			/**
+			 * Return null so that the controller recognizes that there is a problem.
+			 * Don't want to create duplicates as that is a conflict for the database.
+			 */
+			return null;
+//			return cDAO.getOne(c.getId());
 		}
 
 		int csvNum = new Random().nextInt(1000); // for security reasons, make the csv random
