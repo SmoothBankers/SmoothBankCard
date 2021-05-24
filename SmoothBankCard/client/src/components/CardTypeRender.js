@@ -26,7 +26,7 @@ const CardTypeRender = ({ cardTypeData }) => {
     
 
     if(cardTypeData && cardTypeData.requestSuccessful){
-        console.log(cardTypeData);
+        //console.log(cardTypeData);
         const info = cardTypeData.types
         //console.log(info);
         content = 

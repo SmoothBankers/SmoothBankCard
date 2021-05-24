@@ -22,7 +22,7 @@ export const createCard = (cardTypeId, cardHolderName, accountNum) =>{
              holderName: cardHolderName
             }
         )
-        .then( res => {
+        .then( (res) => {
             dispatch(_createCardSuccess(res));
         })
         .catch((error) => {

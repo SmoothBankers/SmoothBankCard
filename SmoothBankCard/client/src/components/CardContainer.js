@@ -4,6 +4,8 @@ import * as cardActions from '../actions/cardActions';
 import CardTypeContainer from './CardTypeContainer';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import {Provider } from 'react-redux';
+import configureStore from '../store/configureStore'
 
 
 class CardContainer extends React.Component{
@@ -60,6 +62,7 @@ class CardContainer extends React.Component{
     render(){
         return(
             <div>
+                <Provider store={configureStore()}>
                 <CardTypeContainer />
                     <form onSubmit={this.handleSubmit}>
                         <label>
@@ -79,6 +82,7 @@ class CardContainer extends React.Component{
                         < br />
                         <input type="submit" value="Register" />
                     </form>
+                    </Provider>
             </div>
         );
     }

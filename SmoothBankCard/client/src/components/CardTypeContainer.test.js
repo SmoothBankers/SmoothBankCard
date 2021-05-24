@@ -2,6 +2,11 @@ import CardTypeContainer from './CardTypeContainer'
 import configureStore from "../store/configureStore"
 import { render, screen, act, waitFor } from '@testing-library/react';
 import mockedAxios from 'axios';
+import axios from 'axios';
+
+  afterEach(() =>{
+    axios.get.mockClear();
+  });
 
 test('mocking axios get', async () => {
   const data = {
