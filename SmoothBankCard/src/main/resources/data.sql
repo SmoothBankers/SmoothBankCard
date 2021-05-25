@@ -43,7 +43,8 @@ insert into cardType (id, title, description, rate) values
 
 insert into card (id, csv, balance, cashback, expiration_month, expiration_year, holder_name, card_type) values
 (6507016719651110, 940, 0.00, 0.00, 8, 2025, 'John Appleseed', 1),
-(6011635835271575, 960, 0.00, 0.00, 2, 2024, 'Abbatha Road', 2);
+(6011635835271575, 960, 0.00, 0.00, 2, 2024, 'Abbatha Road', 2),
+(43210008765432104, 545, 0.00, 0.00, 3, 2024, 'Cate Dupli', 1);
 
 insert into loanType (id, title, description, rate) values
 (1, 'Promotional loan', 'A promotional loan for new accounts with a low rate', 0.03),
