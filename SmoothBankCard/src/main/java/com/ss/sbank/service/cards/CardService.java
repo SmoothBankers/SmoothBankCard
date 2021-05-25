@@ -37,6 +37,13 @@ public class CardService {
 	 */
 
 	public Card createCard(int accountNumber, CardType type, String holderName) {
+
+		/**
+		 * TODO: do we need to consider the card type for this or does is matter? As in,
+		 * can a single checking account have multiple different cards linked to it so
+		 * long as they're different types or must they change their card?
+		 */
+
 		System.out.println("Account Number: " + accountNumber + "; CardType: " + type);
 
 		// Error checking
@@ -58,12 +65,12 @@ public class CardService {
 		id *= 10;
 		id += ((sum * 9) % 10);
 		c.setId(id);
-		
+
 		// if card already exists
 		if (cDAO.existsById(c.getId())) {
 			/**
-			 * Return null so that the controller recognizes that there is a problem.
-			 * Don't want to create duplicates as that is a conflict for the database.
+			 * Return null so that the controller recognizes that there is a problem. Don't
+			 * want to create duplicates as that is a conflict for the database.
 			 */
 			return null;
 //			return cDAO.getOne(c.getId());

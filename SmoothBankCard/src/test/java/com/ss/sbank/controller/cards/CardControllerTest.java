@@ -38,10 +38,10 @@ public class CardControllerTest {
 	
 	@Test
 	public void createCardTest() throws Exception {
-		//Test submitting empty form
+		//Test submitting invalid form
 		mockMvc.perform(post("/api/cards")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("")
+				.content("\"{\"accountNumber\":\"00123456780\", \"cardType\":\"\", \"holderName\":\"Holden Cards\"}\"")
 				.accept(MediaType.APPLICATION_JSON))
 		.andDo(print())
 		.andExpect(status().isBadRequest());
