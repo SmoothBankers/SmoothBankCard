@@ -1,12 +1,14 @@
 import configureStore from "../store/configureStore"
-import { render, screen, act, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, act, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import mockedAxios from 'axios';
 import axios from "axios";
 import CardContainer from './CardContainer';
+import cardReducer from '../reducers/cardReducer';
 
 afterEach(() =>{
     axios.get.mockClear();
     axios.post.mockClear();
+    cleanup;
 });
 
 test('displaying page', async () => {
@@ -19,34 +21,32 @@ test('displaying page', async () => {
           rate: 1.00
         }
       ]
-    };
-
-    const response = {
-        data:[
-
-        ]
-    };
-  
+    };  
     mockedAxios.get.mockResolvedValueOnce(data);
-    mockedAxios.post.mockResolvedValueOnce(response);
-
-    //These tests pass, but there's a odd behavior where it registers an uncaught error in cardTypeActions.
-    //CardTypeActions works as expected and passes its tests, so it appears that the mocking of Axios get here
-    //messes with the Axios get calls in CardTypeActions during these tests. Not sure if this is cause for
-    //concern but right now all the tests seem to pass without any real issue.
 
     act(() => {
       render(<CardContainer store = {configureStore()}/>);
-      expect(screen.getByText(/Register/)).toBeInTheDocument();
     });
 
+    expect(screen.getByText(/Register/)).toBeInTheDocument();
     const titleElement = screen.findByText("Example title");
-    const retVal = fireEvent.click(screen.getByText(/Register/));
 
     await waitFor(() => {
       expect(titleElement).toBeTruthy();
-      expect(retVal).toBeTruthy();
     });
   
   
+  });
+
+  describe('test the reducer and actions', () =>{
+    // it('should return the initial state', () =>{
+    //   expect(cardReducer.cardData)
+    // });
+
+    it('should update on button press', () =>{
+      render(<CardContainer store = {configureStore()}/>);
+      const fireResult = fireEvent.click(screen.getByText(/Register/));
+      expect(cardReducer.cardData).toBeTruthy();
+      console.log(fireResult);
+    });
   });

@@ -35,7 +35,7 @@ class CardContainer extends React.Component{
     }
 
     handleSubmit(event) {
-        this.props.actions.createCard(this.state.cardType, this.state.holderName, this.state.accountNumber);
+        return this.props.actions.createCard(this.state.cardType, this.state.holderName, this.state.accountNumber);
         event.preventDefault();
     }
 
