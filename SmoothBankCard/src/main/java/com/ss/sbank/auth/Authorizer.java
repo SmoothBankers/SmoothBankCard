@@ -16,14 +16,14 @@ public class Authorizer extends WebSecurityConfigurerAdapter implements WebMvcCo
 		http.cors().and()
 		.csrf().disable().authorizeRequests()
 		.antMatchers("/").permitAll()
-		.antMatchers("/h2-console/**").permitAll()
+		.antMatchers("/h2/*").permitAll()
 		.antMatchers("/cardTypes").permitAll();
 	}
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-		.allowedOrigins("http://localhost:3000").allowedMethods("GET");
+		.allowedOrigins("http://localhost:3000").allowedMethods("*");
 	}
 
 }

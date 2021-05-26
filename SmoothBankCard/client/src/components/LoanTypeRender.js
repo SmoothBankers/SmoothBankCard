@@ -27,7 +27,7 @@ const LoanTypeRender = ({ loanTypeData }) => {
     
 
     if(loanTypeData && loanTypeData.requestSuccess){
-        const info = loanTypeData.types._embedded.loanTypes;
+        const info = loanTypeData.types
         console.log(info);
         content = 
             (

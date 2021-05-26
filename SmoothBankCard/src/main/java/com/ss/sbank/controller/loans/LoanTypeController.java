@@ -13,14 +13,15 @@ import com.ss.sbank.service.loans.LoanTypeService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/loanTypes")
+@RequestMapping("/api/loanTypes")
 public class LoanTypeController {
 
 	@Autowired
 	private LoanTypeService ltService;
 
-	@GetMapping()
+	@GetMapping
 	public List<LoanType> getAllLoanTypes() {
+		System.out.println("Called LT Controller getAll");
 		return ltService.getAllLoanTypes();
 	}
 

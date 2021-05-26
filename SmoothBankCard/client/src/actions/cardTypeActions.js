@@ -5,11 +5,12 @@ import { READ_CARD_TYPES_SUCCESSFUL, READ_CARD_TYPES_FAILURE, READ_CARD_TYPES_PE
 export const readCardTypes = () => {
   return dispatch => {
       dispatch(_readCardTypesStarted());
+      //There's some sort of issue with the .then portion.
       return axios.get(`http://localhost:8080/api/cardTypes/`)
-      .then(res => {
+      .then((res) => {
+          console.log(res);
           dispatch(_readCardTypesSuccess(res));
-      })
-      .catch( (error) => {
+      }).catch( (error) => {
           console.log(error);
           dispatch(_readCardTypesFailed(error));
       });
