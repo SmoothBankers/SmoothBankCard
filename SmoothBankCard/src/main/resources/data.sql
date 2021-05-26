@@ -31,10 +31,11 @@ create table loanType(
 );
 
 create table loan(
-	id INT primary key,
+	id BIGINT primary key,
     balance DECIMAL,
     loan_type int,
-    foreign key (loan_type) references loanType(id)
+    foreign key (loan_type) references loanType(id),
+    holder_name VARCHAR(45)
 );
 
 insert into cardType (id, title, description, rate) values 
@@ -50,3 +51,6 @@ insert into loanType (id, title, description, rate) values
 (1, 'Promotional loan', 'A promotional loan for new accounts with a low rate', 0.03),
 (2, 'VIP Loan','A loan given only to premier members', 0.00),
 (3, 'Standard Loan', 'One of our more poular loans', 0.05);
+
+insert into loan (id, balance, loan_type, holder_name) values
+(43210008765432104, 0.00, 1, 'Owen L. Holden');
