@@ -1,20 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as cardActions from '../actions/cardActions';
-import CardTypeContainer from './CardTypeContainer';
+import * as loanActions from '../actions/loanActions';
+import LoanTypeContainer from './LoanTypeContainer';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import {Provider } from 'react-redux';
 import configureStore from '../store/configureStore'
 
 
-class CardContainer extends React.Component{
+class LoanContainer extends React.Component{
 
     constructor(props){
         super(props);
         
         this.state = {
-            cardType: 0,
+            loanType: 0,
             holderName: '',
             accountNumber: 0
         };
@@ -28,14 +28,14 @@ class CardContainer extends React.Component{
 
     handleChange(event){
         this.setState({
-            cardType: event.target.value,            
+            loanType: event.target.value,            
             accountNumber: this.state.accountNumber,
             holderName: this.state.holderName
         });
     }
 
     handleSubmit(event) {
-        return this.props.actions.createCard(this.state.cardType, this.state.holderName, this.state.accountNumber);
+        return this.props.actions.createLoan(this.state.loanType, this.state.holderName, this.state.accountNumber);
     }
 
     afterSubmission(event){
@@ -45,7 +45,7 @@ class CardContainer extends React.Component{
     nameChange(event){
         this.setState({
             holderName: event.target.value,
-            cardType: this.state.cardType,
+            loanType: this.state.loanType,
             accountNumber: this.state.accountNumber
         });
     }
@@ -53,7 +53,7 @@ class CardContainer extends React.Component{
     accountChange(event){
         this.setState({
             holderName: this.state.holderName,
-            cardType: this.state.cardType,
+            loanType: this.state.loanType,
             accountNumber: event.target.value
         });
     }
@@ -63,13 +63,13 @@ class CardContainer extends React.Component{
             <div>
                 <Provider store={configureStore()}>
                 <div>
-                    <CardTypeContainer />
+                    <LoanTypeContainer />
                 </div>
                 <div style = {{display:'flex', alignItems:'center', justifyContent:'center'}}>
                     <form>
                         <label>
-                            CardType:
-                            <input type="number" value={this.state.cardType} onChange={this.handleChange} />
+                            Loan  Type:
+                            <input type="number" value={this.state.loanType} onChange={this.handleChange} />
                         </label>
                         <br />
                         <label>
@@ -78,7 +78,7 @@ class CardContainer extends React.Component{
                         </label>
                         <br />
                         <label>
-                            Account number:
+                            Account num:
                             <input type="number" value={this.state.accountNumber} onChange={this.accountChange}/>
                         </label>
                         < br />
@@ -94,21 +94,21 @@ class CardContainer extends React.Component{
 
 function mapStateToProps(state){
     return {
-      cardData: state.cardReducer.cardData
+      loanData: state.loanReducer.loanData
     }
 }
 
 function mapDispatchToProps(dispatch){
     return { 
-        actions: bindActionCreators(cardActions, dispatch)
+        actions: bindActionCreators(loanActions, dispatch)
     }
 }
 
-CardContainer.propTypes = {
+LoanContainer.propTypes = {
     actions: PropTypes.object
 };
 
 export default connect( 
     mapStateToProps,
     mapDispatchToProps
-    )(CardContainer);
+    )(LoanContainer);

@@ -10,6 +10,7 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 import com.ss.sbank.de.cards.Card;
+import com.ss.sbank.de.loans.Loan;
 
 /**
  * @author Parker W.
@@ -26,7 +27,12 @@ public class IDGenerator implements IdentifierGenerator {
 		 * called, so just return the id that's already been made. This really just
 		 * ensures that the id is not overwritten with a number that is not wanted.
 		 */
-		return ((Card) object).getId();
+		if(object instanceof Card)
+			return ((Card) object).getId();
+		else if (object instanceof Loan)
+			return ((Loan) object).getId();
+		else
+		return System.currentTimeMillis();
 	}
 
 }

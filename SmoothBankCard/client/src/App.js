@@ -7,6 +7,7 @@ import configureStore from './store/configureStore';
 import {Provider } from 'react-redux';
 import LoanTypeContainer from './components/LoanTypeContainer';
 import CardContainer from './components/CardContainer';
+import LoanContainer from './components/LoanContainer';
 
 function App() {
   return(
@@ -18,6 +19,7 @@ function App() {
             <Route path='/cardTypes' component={CardTypeContainer}/>
             <Route path='/loanTypes' component={LoanTypeContainer}/>
             <Route path='/cards' component={CardContainer}/>
+            <Route path='/loans' component={LoanContainer}/>
         </Switch>
       </Provider>        
       </BrowserRouter>

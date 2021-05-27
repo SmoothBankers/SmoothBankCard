@@ -17,7 +17,7 @@ const CardTypeContainer = (props) => {
 
    
     return(
-        <div>
+        <div style = {{display:'flex', alignItems:'center', justifyContent:'center'}}>
             <CardTypeRender {...props} />
         </div>
     );
