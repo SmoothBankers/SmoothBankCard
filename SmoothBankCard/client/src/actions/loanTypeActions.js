@@ -5,7 +5,7 @@ import { READ_LOAN_TYPES_SUCCESS, READ_LOAN_TYPES_FAILURE, READ_LOAN_TYPES_PENDI
 export const readLoanTypes = () => {
   return dispatch => {
       dispatch(_readLoanTypesStarted());
-      return axios.get(`http://localhost:8080/api/loanTypes/`)
+      return axios.get(`http://localhost:8081/api/loanTypes/`)
       .then(res => {
           dispatch(_readLoanTypesSuccess(res));
       })

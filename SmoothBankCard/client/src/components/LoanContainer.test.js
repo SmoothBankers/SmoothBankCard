@@ -2,8 +2,8 @@ import configureStore from "../store/configureStore"
 import { render, screen, act, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import mockedAxios from 'axios';
 import axios from "axios";
-import CardContainer from './CardContainer';
-import cardReducer from '../reducers/cardReducer';
+import LoanContainer from './LoanContainer';
+import loanReducer from '../reducers/loanReducer';
 
 afterEach(() =>{
     axios.get.mockClear();
