@@ -6,7 +6,7 @@ export const createLoan = (loanTypeId, loanHolderName, accountNum) =>{
         console.log(loanTypeId, loanHolderName, accountNum);
         dispatch(_createLoanStarted());
         return axios.post(
-            'http://localhost:8081/api/loans/',
+            'http://localhost:8080/api/loans/',
             {
              accountNumber: accountNum,
              loanType: loanTypeId,

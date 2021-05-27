@@ -6,7 +6,7 @@ export const readCardTypes = () => {
   return dispatch => {
       dispatch(_readCardTypesStarted());
       //There's some sort of issue with the .then portion.
-      return axios.get(`http://localhost:8081/api/cardTypes/`)
+      return axios.get(`http://localhost:8080/api/cardTypes/`)
       .then((res) => {
           console.log(res);
           dispatch(_readCardTypesSuccess(res));

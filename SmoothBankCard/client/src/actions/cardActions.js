@@ -6,7 +6,7 @@ export const createCard = (cardTypeId, cardHolderName, accountNum) =>{
         console.log(cardTypeId, cardHolderName, accountNum);
         dispatch(_createCardStarted());
         return axios.post(
-            'http://localhost:8081/api/cards/',
+            'http://localhost:8080/api/cards/',
             {
              accountNumber: accountNum,
              cardType: cardTypeId,
