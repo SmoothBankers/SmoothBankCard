@@ -17,7 +17,7 @@ function App() {
       <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/cardTypes' component={CardTypeContainer}/>
-            <Route path='/loanTypes' component={LoanTypeContainer}/>
+            <Route path='/loanTypes/:id?' component={LoanTypeContainer}/>
             <Route path='/cards' component={CardContainer}/>
             <Route path='/loans' component={LoanContainer}/>
         </Switch>

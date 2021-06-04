@@ -1,41 +1,80 @@
+DROP TABLE IF EXISTS cardRecord;
+DROP TABLE IF EXISTS loanRecord;
+
+DROP TABLE IF EXISTS holder;
+
 DROP TABLE IF EXISTS card;
 DROP TABLE IF EXISTS cardType;
+
 DROP TABLE IF EXISTS loan;
 DROP TABLE IF EXISTS loanType;
 
-
-create table cardType(
-	id int primary key,
-    title VARCHAR(45),
-    description varchar(255),
-    rate decimal
+CREATE TABLE holder (
+    id INT PRIMARY KEY,
+    holder_name VARCHAR(127),
+    home_phone VARCHAR(10),
+    cell_phone VARCHAR(10),
+    work_phone VARCHAR(14),
+    email VARCHAR(127),
+    ssn VARCHAR(10),
+    address VARCHAR(127),
+    zipcode INT,
+    monthly_income INT
 );
 
-create table card(
-	id BIGINT primary key,
-    csv int,
-    balance decimal,
-    cashback decimal,
-    expiration_month int,
-    expiration_year int,
-    holder_name varchar(45),
-	card_type int,
-    foreign key (card_type) references cardType(id)
-);
-
-create table loanType(
-	id INT primary key,
+CREATE TABLE cardType (
+    id INT PRIMARY KEY,
     title VARCHAR(45),
     description VARCHAR(255),
     rate DECIMAL
 );
 
-create table loan(
-	id BIGINT primary key,
+CREATE TABLE card (
+    id BIGINT PRIMARY KEY,
+    csv INT,
     balance DECIMAL,
-    loan_type int,
-    foreign key (loan_type) references loanType(id),
+    cashback DECIMAL,
+    expiration_month INT,
+    expiration_year INT,
+    holder_name VARCHAR(45),
+    card_type INT,
+    FOREIGN KEY (card_type)
+        REFERENCES cardType (id)
+);
+
+CREATE TABLE loanType (
+    id INT PRIMARY KEY,
+    title VARCHAR(45),
+    description VARCHAR(255),
+    rate DECIMAL
+);
+
+CREATE TABLE loan (
+    id BIGINT PRIMARY KEY,
+    balance DECIMAL,
+    loan_type INT,
+    FOREIGN KEY (loan_type)
+        REFERENCES loanType (id),
     holder_name VARCHAR(45)
+);
+
+CREATE TABLE loanRecord (
+    holder_id INT,
+    loan_id INT,
+    id INT PRIMARY KEY,
+    FOREIGN KEY (holder_id)
+        REFERENCES holder (id),
+    FOREIGN KEY (loan_id)
+        REFERENCES loan (id)
+);
+CREATE TABLE cardRecord (
+    holder_id INT,
+    card_id BIGINT,
+    id INT PRIMARY KEY,
+    FOREIGN KEY (holder_id)
+        REFERENCES holder (id),
+    FOREIGN KEY (card_id)
+        REFERENCES card (id)
 );
 
 insert into cardType (id, title, description, rate) values 
@@ -48,9 +87,9 @@ insert into card (id, csv, balance, cashback, expiration_month, expiration_year,
 (43210008765432104, 545, 0.00, 0.00, 3, 2024, 'Cate Dupli', 1);
 
 insert into loanType (id, title, description, rate) values
-(1, 'Promotional loan', 'A promotional loan for new accounts with a low rate', 0.03),
-(2, 'VIP Loan','A loan given only to premier members', 0.00),
-(3, 'Standard Loan', 'One of our more poular loans', 0.05);
+(1, 'Personal Loan', 'A loan for your personal needs, from an unexpected bill to helping pay for that vacation you always wanted.', 10.50),
+(2, 'Home Loan','Need help with buying your dream home? This loan can help with that.', 15.00),
+(3, 'Business Loan', 'Give your startup business a boost with one of our loans.', 12.50);
 
 insert into loan (id, balance, loan_type, holder_name) values
 (43210008765432104, 0.00, 1, 'Owen L. Holden');

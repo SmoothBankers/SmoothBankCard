@@ -25,6 +25,11 @@ const CardTypeRender = ({ cardTypeData }) => {
     }
     
 
+    /**
+     * TODO: update this so that the card name is a link to a
+     * page with a more detailed explanation of the card itself
+     * 
+     */
     if(cardTypeData && cardTypeData.requestSuccessful){
         //console.log(cardTypeData);
         const info = cardTypeData.types

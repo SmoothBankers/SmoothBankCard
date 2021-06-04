@@ -6,7 +6,7 @@ const LoanTypeRender = ({ loanTypeData }) => {
     function createLoanTypeRow(loanType){
         return (
             <tr key={loanType.title}>
-                <td> {loanType.title} </td>
+                <td> <a href = {'/loanTypes/' + loanType.id}> {loanType.title} </a> </td>
                 <td> {loanType.description} </td>
                 <td> {loanType.rate} </td>
             </tr>
@@ -26,6 +26,15 @@ const LoanTypeRender = ({ loanTypeData }) => {
     }
     
 
+    /**
+     * TODO: Update this so that the Name is a hyperlink to a page
+     * with a more detailed explanation of the loan.
+     * 
+     * Send a GET request with the loan's id to get the more
+     * detailed information? Should work provided that the extra
+     * information is also stored in the database, which it should
+     * be anyway.
+     */
     if(loanTypeData && loanTypeData.requestSuccess){
         const info = loanTypeData.types
         console.log(info);
@@ -60,7 +69,7 @@ const LoanTypeRender = ({ loanTypeData }) => {
         
     return(
         <div>
-            <h1>Here are our different types of loans</h1>
+            <h1 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}>Here are our different types of loans</h1>
             {content}
         </div>
     );
