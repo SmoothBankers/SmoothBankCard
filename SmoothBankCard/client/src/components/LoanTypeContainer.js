@@ -25,9 +25,6 @@ const LoanTypeContainer = (props) => {
             <div style = {{display:'flex', alignItems:'center', justifyContent:'center'}}>
                 {loanTypes}   
             </div>
-            <h1 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> About this card</h1>
-            <h2 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> {props.match.params.id} </h2>
-            <h2 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> </h2>
         </div>
     );
 }

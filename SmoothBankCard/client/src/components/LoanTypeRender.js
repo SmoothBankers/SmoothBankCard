@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import LoanTypeRenderInfo from './LoanTypeRenderInfo';
 
 const LoanTypeRender = ({ loanTypeData }) => {
+    let content = '';
+    const [displayComp, setDisplayComp] = useState('');
 
     function createLoanTypeRow(loanType){
         return (
-            <tr key={loanType.title}>
-                <td> <a href = {'/loanTypes/' + loanType.id}> {loanType.title} </a> </td>
-                <td> {loanType.description} </td>
-                <td> {loanType.rate} </td>
+             <tr key = {loanType.id}>
+                <td>
+               <button
+                onClick={ () => {
+                    setDisplayComp(<LoanTypeRenderInfo data={loanType.description}/>)         
+                   } }>
+                   {loanType.title}
+               </button>
+               </td>
+               <td> {loanType.description} </td>
+               <td> {loanType.rate} </td>
             </tr>
         );
-    }
-
-    let content = '';    
- 
+    }  
     if(!loanTypeData || loanTypeData.requestPending){
         content = (
             <div className="d-flex justify-content-center">
@@ -25,19 +32,9 @@ const LoanTypeRender = ({ loanTypeData }) => {
         );
     }
     
-
-    /**
-     * TODO: Update this so that the Name is a hyperlink to a page
-     * with a more detailed explanation of the loan.
-     * 
-     * Send a GET request with the loan's id to get the more
-     * detailed information? Should work provided that the extra
-     * information is also stored in the database, which it should
-     * be anyway.
-     */
     if(loanTypeData && loanTypeData.requestSuccess){
         const info = loanTypeData.types
-        console.log(info);
+        //console.log(info);
         content = 
             (
             <div>
@@ -71,6 +68,8 @@ const LoanTypeRender = ({ loanTypeData }) => {
         <div>
             <h1 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}>Here are our different types of loans</h1>
             {content}
+            <h1 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> About this loan </h1>
+            {displayComp}
         </div>
     );
 }
