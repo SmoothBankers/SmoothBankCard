@@ -1,25 +1,45 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as loanActions from '../actions/loanActions';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-const LoanTypeRender = ({ loanTypeData }) => {
 
-    let info = '';
-    if(loanTypeData){
-        console.log("Loan Type Data for Information Render");
-        console.log(loanTypeData.match);
+class LoanTypeRenderInfo extends React.Component{
+
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            information: 'Test'
+        };
     }
 
-        return (
-            <div> 
-                <div> TODO: Replace this with more in-depth information of card# </div>
-                {info}
-            </div>
-
+    render(){
+        return(
+           <div> {this.props.data} </div>
         );
+    }
+
+} 
+
+function mapStateToProps(state){
+    return {
+      loanData: state.loanReducer.loanData
+    }
 }
 
-LoanTypeRender.propTypes = {
-    loanTypeData: PropTypes.object
+function mapDispatchToProps(dispatch){
+    return { 
+        actions: bindActionCreators(loanActions, dispatch)
+    }
+}
+
+LoanTypeRenderInfo.propTypes = {
+    actions: PropTypes.object
 };
 
-export default LoanTypeRender;
+export default connect( 
+    mapStateToProps,
+    mapDispatchToProps
+    )(LoanTypeRenderInfo);
