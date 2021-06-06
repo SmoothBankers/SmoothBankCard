@@ -11,13 +11,19 @@ class LoanTypeRenderInfo extends React.Component{
         super(props);
         
         this.state = {
-            information: 'Test'
+            information: ''
         };
     }
 
     render(){
         return(
-           <div> {this.props.data} </div>
+           <div> 
+               <h3 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> {this.props.data.title} </h3> 
+               <p style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> {this.props.data.description} </p>
+               <p style = {{display:'flex', alignItems:'center', justifyContent:'center'}}>
+                    Here is where more information will be provided for the user from the database 
+                </p>
+            </div>
         );
     }
 

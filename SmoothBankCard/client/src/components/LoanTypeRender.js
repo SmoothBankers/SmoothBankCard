@@ -4,6 +4,7 @@ import LoanTypeRenderInfo from './LoanTypeRenderInfo';
 
 const LoanTypeRender = ({ loanTypeData }) => {
     let content = '';
+    const [selectedLoan, setLoan] = useState('');
     const [displayComp, setDisplayComp] = useState('');
 
     function createLoanTypeRow(loanType){
@@ -12,7 +13,8 @@ const LoanTypeRender = ({ loanTypeData }) => {
                 <td>
                <button
                 onClick={ () => {
-                    setDisplayComp(<LoanTypeRenderInfo data={loanType.description}/>)         
+                    setDisplayComp(<LoanTypeRenderInfo data={loanType}/>)
+                    setLoan(loanType);    
                    } }>
                    {loanType.title}
                </button>
@@ -69,9 +71,24 @@ const LoanTypeRender = ({ loanTypeData }) => {
             <h1 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}>Here are our different types of loans</h1>
             {content}
             <h1 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> About this loan </h1>
-            {displayComp}
+            <div style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> 
+             {displayComp}
+            </div>
+            <div style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> 
+                <p></p>
+                <button  onClick = {registerForLoan}>Register for this loan</button> 
+            </div>
+            
         </div>
     );
+
+    function registerForLoan(){
+        if(!selectedLoan){
+            alert("Please select a loan to apply for.")
+        } else{
+            alert("Registering for loan " + selectedLoan.id + ": " + selectedLoan.title);
+        }
+    }
 }
 
 LoanTypeRender.propTypes = {
