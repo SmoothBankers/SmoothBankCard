@@ -14,8 +14,11 @@ class LoanRegistration extends Component{
             email:"",
             ssn:"",
             address:"",
+            po_box:"",
             zipcode:"",
-            monthly_income:""
+            monthly_income:"",
+            amount_requested:0
+            //any additional information goes here
         },
         errors:{}
     };
@@ -29,8 +32,15 @@ class LoanRegistration extends Component{
     schema = {
         name: Joi.string().required().label("Your name"),
         email: Joi.string().required().email({minDomainAtons: 2}).label("Email"),
-        home_phone: Joi.string().min(7).label("Home Phone")
-        //TODO Add the rest
+        home_phone: Joi.string().min(7).label("Home phone"),
+        cell_phone: Joi.string().min(7).label("Cell phone"),
+        work_phone: Joi.string().min(7).label("Work phone"),
+        address: Joi.string().required().label("Mailing address"),
+        po_box: Joi.string().label("P.O box"),
+        zipcode: Joi.isNumber().required().label("Zipcode"),
+        amount_requested: Joi.isNumber().required().label("Requested amount"),
+        monthly_income: Joi.isNumber().required().label("Monthly income")
+        //any additional information goes here
     };
 
     validate = () => {
@@ -64,7 +74,7 @@ class LoanRegistration extends Component{
         try{
             const payload = {...this.state.holder};
             delete payload.confirmPass;
-            //const {data} = await axios.post(/**API Backend for Loan registration**/'', payload);
+            const {data} = await axios.post('http://localhost:8081/api/loans', payload);
             //Data will contain the results of the axios post, such as any tokens or data
 
             /**
@@ -174,6 +184,98 @@ class LoanRegistration extends Component{
                                     <span style={spanStyle} className="text-danger">{this.state.errors.home_phone}</span>
                             </div>
                         </div>
+                        <div className="row mt-5">
+                            <label className="col-3 col-form-label" htmlFor="cell_phone">Cell phone:</label>
+                            <div className="col-5">
+                                <input
+                                    value={this.state.holder.cell_phone}
+                                    onChange={this.handleChangeWithValidation}
+                                    onBlur={this.handleBlur}
+                                    name="cell_phone"
+                                    id="cell_phone" type="text" className="form-control" />
+                                    <span style={spanStyle} className="text-danger">{this.state.errors.cell_phone}</span>
+                            </div>
+                        </div>
+                        <div className="row mt-5">
+                            <label className="col-3 col-form-label" htmlFor="work_phone">Work phone:</label>
+                            <div className="col-5">
+                                <input
+                                    value={this.state.holder.work_phone}
+                                    onChange={this.handleChangeWithValidation}
+                                    onBlur={this.handleBlur}
+                                    name="work_phone"
+                                    id="work_phone" type="text" className="form-control" />
+                                    <span style={spanStyle} className="text-danger">{this.state.errors.work_phone}</span>
+                            </div>
+                        </div>
+                        <div className="row mt-5">
+                            <label className="col-3 col-form-label" htmlFor="Address">Address:</label>
+                            <div className="col-5">
+                                <input
+                                    value={this.state.holder.address}
+                                    onChange={this.handleChangeWithValidation}
+                                    onBlur={this.handleBlur}
+                                    name="address"
+                                    id="address" type="text" className="form-control" />
+                                    <span style={spanStyle} className="text-danger">{this.state.errors.address}</span>
+                            </div>
+                        </div>
+                        <div className="row mt-5">
+                            <label className="col-3 col-form-label" htmlFor="po_box">Apt./P.O Box:</label>
+                            <div className="col-5">
+                                <input
+                                    value={this.state.holder.po_box}
+                                    onChange={this.handleChangeWithValidation}
+                                    onBlur={this.handleBlur}
+                                    name="po_box"
+                                    id="po_box" type="text" className="form-control" />
+                                    <span style={spanStyle} className="text-danger">{this.state.errors.po_box}</span>
+                            </div>
+                        </div>
+                        <div className="row mt-5">
+                            <label className="col-3 col-form-label" htmlFor="zipcode">Zipcode:</label>
+                            <div className="col-5">
+                                <input
+                                    value={this.state.holder.zipcode}
+                                    onChange={this.handleChangeWithValidation}
+                                    onBlur={this.handleBlur}
+                                    name="zipcode"
+                                    id="zipcode" type="number" className="form-control" />
+                                    <span style={spanStyle} className="text-danger">{this.state.errors.zipcode}</span>
+                            </div>
+                        </div>
+                        <div className="row mt-5">
+                            <label className="col-3 col-form-label" htmlFor="monthly_income">Monthly income:</label>
+                            <div className="col-5">
+                                <input
+                                    value={this.state.holder.monthly_income}
+                                    onChange={this.handleChangeWithValidation}
+                                    onBlur={this.handleBlur}
+                                    name="monthly_income"
+                                    id="monthly_income" type="text" className="form-control" />
+                                    <span style={spanStyle} className="text-danger">{this.state.errors.monthly_income}</span>
+                            </div>
+                        </div>
+                        <div className="row mt-5">
+                            <label className="col-3 col-form-label" htmlFor="amount_requested">Desired loan amount:</label>
+                            <div className="col-5">
+                                <input
+                                    value={this.state.holder.amount_requested}
+                                    onChange={this.handleChangeWithValidation}
+                                    onBlur={this.handleBlur}
+                                    name="amount_requested"
+                                    id="amount_requested" type="text" className="form-control" />
+                                    <span style={spanStyle} className="text-danger">{this.state.errors.amount_requested}</span>
+                            </div>
+                        </div>
+                        <div className="form-check mt-5">
+                            <input ref={this.checkbox} onChange={this.handleTerms} className="form-check-input" type="checkbox" value="" id="terms" />
+                            <label className="form-check-label" htmlFor="terms">
+                                I agree to the Terms of Service
+                            </label>
+                        </div>
+                        <br></br>
+                        <button disabled={this.validate() || !this.checkbox?.current?.checked} className="mt-5 mb-3 btn btn-success">Submit</button>
                     </form>
                 </div>
             </div>

@@ -41,23 +41,16 @@ public class LoanController {
 
 	@PostMapping
 	public ResponseEntity<?> createLoan(@RequestBody Map<String, Object> payload) {
-		System.err.println("Called create loan with payload: " + payload);
-		/*
-		 * It is admittedly a little interesting that the payload sends everything as
-		 * strings despite the data in the forms being locked to numbers, but that's
-		 * simply how it is.
+		System.out.println("Called create loan with payload: " + payload);
+		/**
+		 * TODO:
+		 * get the loan information from the payload | payload.get("param_name") |
+		 * create a Holder object using the information from the payload
+		 * create a loanRecord using the loan and the newly-made holder
+		 * send a confirmation email with the confirmation link to the given email
 		 */
 		LoanType lt = ltService.getById(Integer.parseInt((String) payload.get("loanType")));
-
-		if (lt == null) {
-			System.err.println("LoanController PostMapping received invalid loanType in payload!");
-			return new ResponseEntity<String>("Something went wrong! Please check that all your inputs are valid.",
-					HttpStatus.BAD_REQUEST);
-		}
-
-		Loan createdLoan = service.createLoan(Integer.parseInt((String) payload.get("accountNumber")), lt,
-				(String) payload.get("holderName"));
-		return new ResponseEntity<Loan>(createdLoan, HttpStatus.CREATED);
+		return new ResponseEntity<String>("Registered for loan", HttpStatus.CREATED);
 	}
 
 }
