@@ -19,6 +19,7 @@ CREATE TABLE holder (
     ssn VARCHAR(10),
     address VARCHAR(127),
     zipcode INT,
+    po_box VARCHAR(127),
     monthly_income INT
 );
 

@@ -1,11 +1,10 @@
 import React, {Component, createRef} from 'react';
 import Joi from 'joi-browser';
-//import axios from 'axios';
+import axios from 'axios';
 
 class LoanRegistration extends Component{
 
     state = {
-        loan:{},
         holder:{
             name: "",
             home_phone:"",
@@ -17,13 +16,13 @@ class LoanRegistration extends Component{
             po_box:"",
             zipcode:"",
             monthly_income:"",
-            amount_requested:0
+            amount_requested:""
             //any additional information goes here
         },
         errors:{}
     };
 
-    checkbox
+    checkbox;
 
     componentDidMount(){
         this.checkbox = createRef();
@@ -37,9 +36,10 @@ class LoanRegistration extends Component{
         work_phone: Joi.string().min(7).label("Work phone"),
         address: Joi.string().required().label("Mailing address"),
         po_box: Joi.string().label("P.O box"),
-        zipcode: Joi.isNumber().required().label("Zipcode"),
-        amount_requested: Joi.isNumber().required().label("Requested amount"),
-        monthly_income: Joi.isNumber().required().label("Monthly income")
+        zipcode: Joi.number().required().label("Zipcode"),
+        amount_requested: Joi.number().required().label("Requested amount"),
+        monthly_income: Joi.number().required().label("Monthly income"),
+        ssn: Joi.string().min(10).max(10).required().label("Social Security Number")
         //any additional information goes here
     };
 
@@ -49,9 +49,10 @@ class LoanRegistration extends Component{
         if (!error) return null;
 
         const errors = {};
-        for(let item of error.detail){
+        for(let item of error.details){
             errors[item.path[0]] = item.message;
         }
+        //console.log(errors);
         return errors;
     }
 
@@ -72,7 +73,8 @@ class LoanRegistration extends Component{
         if (errors) return;
 
         try{
-            const payload = {...this.state.holder};
+            const loan = JSON.parse(localStorage.getItem("loan"));
+            const payload = {...this.state.holder, loan};
             delete payload.confirmPass;
             const {data} = await axios.post('http://localhost:8081/api/loans', payload);
             //Data will contain the results of the axios post, such as any tokens or data
@@ -90,6 +92,19 @@ class LoanRegistration extends Component{
                 this.setState({errors});
             }
         }
+    }
+
+    handleTerms = () => {
+        const errors = {...this.state.errors};
+        if (!this.checkbox.current?.checked) {
+            errors['item'] = "You must agree to the Terms of Service"
+            
+        }
+        else {
+            delete errors['item'];
+        }
+
+        this.setState({errors});
     }
 
     handleChangeWithValidation = ({currentTarget: input}) => {
@@ -242,6 +257,18 @@ class LoanRegistration extends Component{
                                     name="zipcode"
                                     id="zipcode" type="number" className="form-control" />
                                     <span style={spanStyle} className="text-danger">{this.state.errors.zipcode}</span>
+                            </div>
+                        </div>
+                        <div className="row mt-5">
+                            <label className="col-3 col-form-label" htmlFor="ssn">Social Security Number:</label>
+                            <div className="col-5">
+                                <input
+                                    value={this.state.holder.ssn}
+                                    onChange={this.handleChangeWithValidation}
+                                    onBlur={this.handleBlur}
+                                    name="ssn"
+                                    id="ssn" type="text" className="form-control" />
+                                    <span style={spanStyle} className="text-danger">{this.state.errors.ssn}</span>
                             </div>
                         </div>
                         <div className="row mt-5">

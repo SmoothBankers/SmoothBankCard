@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Loan {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 //	@GenericGenerator(name = "loan_id", strategy = "com.ss.sbank.generator.IDGenerator")
 //	@GeneratedValue(generator="loan_id")
 	private Long id;

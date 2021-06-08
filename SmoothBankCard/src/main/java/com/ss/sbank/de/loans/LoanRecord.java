@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.ss.sbank.de.applicants.Holder;
+import com.ss.sbank.de.holder.Holder;
 
 import lombok.Data;
 
@@ -26,7 +26,7 @@ public class LoanRecord {
 	private Loan loan;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	private int id;
 
 }

@@ -1,4 +1,4 @@
-package com.ss.sbank.de.applicants;
+package com.ss.sbank.de.holder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +23,7 @@ import lombok.Data;
 public class Holder {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	private Integer id;
 
 	@Column(name = "holder_name")
@@ -46,6 +46,9 @@ public class Holder {
 
 	@Column(name = "address")
 	private String address;
+	
+	@Column(name="po_box")
+	private String po_box;
 
 	@Column(name = "zipcode")
 	private Integer zipcode;

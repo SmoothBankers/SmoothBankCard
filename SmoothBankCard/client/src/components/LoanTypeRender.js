@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LoanTypeRenderInfo from './LoanTypeRenderInfo';
-import {Redirect} from "react-router-dom";
 
 const LoanTypeRender = ({ loanTypeData }) => {
     let content = '';
@@ -14,7 +13,7 @@ const LoanTypeRender = ({ loanTypeData }) => {
                 <td>
                <button
                 onClick={ () => {
-                    setDisplayComp(<LoanTypeRenderInfo data={loanType}/>)
+                    setDisplayComp(<LoanTypeRenderInfo data={loanType}/>);
                     setLoan(loanType);    
                    } }>
                    {loanType.title}
@@ -87,10 +86,12 @@ const LoanTypeRender = ({ loanTypeData }) => {
         if(!selectedLoan){
             alert("Please select a loan to apply for.")
         } else{
-            alert("Registering for loan " + selectedLoan.id + ": " + selectedLoan.title);
+            //alert("Registering for loan " + selectedLoan.id + ": " + selectedLoan.title);
             //push history?
-            localStorage.setItem("loan", selectedLoan);
+            console.log(selectedLoan);
+            localStorage.setItem("loan", JSON.stringify(selectedLoan));
             //Redirect to /registerForLoan
+            alert(localStorage.getItem("loan"));
             window.location.pathname = '/registerForLoan';
             //<LoanRegistration loan={selectedLoan} />
         }
