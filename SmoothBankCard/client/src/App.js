@@ -8,6 +8,7 @@ import {Provider } from 'react-redux';
 import LoanTypeContainer from './components/LoanTypeContainer';
 import CardContainer from './components/CardContainer';
 import LoanContainer from './components/LoanContainer';
+import LoanRegistration from './components/LoanRegistration';
 
 function App() {
   return(
@@ -17,9 +18,10 @@ function App() {
       <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/cardTypes' component={CardTypeContainer}/>
-            <Route path='/loanTypes' component={LoanTypeContainer}/>
+            <Route path='/loanTypes/:id?' component={LoanTypeContainer}/>
             <Route path='/cards' component={CardContainer}/>
             <Route path='/loans' component={LoanContainer}/>
+            <Route path='/registerForLoan' component = {LoanRegistration} />
         </Switch>
       </Provider>        
       </BrowserRouter>

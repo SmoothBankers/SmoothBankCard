@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import LoanTypeRenderInfo from './LoanTypeRenderInfo';
 
 const LoanTypeRender = ({ loanTypeData }) => {
+    let content = '';
+    const [selectedLoan, setLoan] = useState('');
+    const [displayComp, setDisplayComp] = useState('');
 
     function createLoanTypeRow(loanType){
         return (
-            <tr key={loanType.title}>
-                <td> {loanType.title} </td>
-                <td> {loanType.description} </td>
-                <td> {loanType.rate} </td>
+             <tr key = {loanType.id}>
+                <td>
+               <button
+                onClick={ () => {
+                    setDisplayComp(<LoanTypeRenderInfo data={loanType}/>);
+                    setLoan(loanType);    
+                   } }>
+                   {loanType.title}
+               </button>
+               </td>
+               <td> {loanType.description} </td>
+               <td> {loanType.rate} </td>
             </tr>
         );
-    }
-
-    let content = '';    
- 
+    }  
     if(!loanTypeData || loanTypeData.requestPending){
         content = (
             <div className="d-flex justify-content-center">
@@ -25,10 +34,9 @@ const LoanTypeRender = ({ loanTypeData }) => {
         );
     }
     
-
     if(loanTypeData && loanTypeData.requestSuccess){
         const info = loanTypeData.types
-        console.log(info);
+        //console.log(info);
         content = 
             (
             <div>
@@ -60,10 +68,35 @@ const LoanTypeRender = ({ loanTypeData }) => {
         
     return(
         <div>
-            <h1>Here are our different types of loans</h1>
+            <h1 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}>Here are our different types of loans</h1>
             {content}
+            <h1 style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> About this loan </h1>
+            <div style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> 
+             {displayComp}
+            </div>
+            <div style = {{display:'flex', alignItems:'center', justifyContent:'center'}}> 
+                <p></p>
+                <button  onClick = {registerForLoan}>Register for this loan</button> 
+            </div>
+            
         </div>
     );
+
+    function registerForLoan(){
+        if(!selectedLoan){
+            alert("Please select a loan to apply for.")
+        } else{
+            //alert("Registering for loan " + selectedLoan.id + ": " + selectedLoan.title);
+            //push history?
+            console.log(selectedLoan);
+            localStorage.setItem("loan", JSON.stringify(selectedLoan));
+            //Redirect to /registerForLoan
+            alert(localStorage.getItem("loan"));
+            window.location.pathname = '/registerForLoan';
+            //<LoanRegistration loan={selectedLoan} />
+        }
+        
+    }
 }
 
 LoanTypeRender.propTypes = {
