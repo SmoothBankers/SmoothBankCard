@@ -20,6 +20,7 @@ public class LoanRecordService {
 		record.setLoan(loan);
 		return lrDAO.saveAndFlush(record);
 		
+		
 	}
 	
 }

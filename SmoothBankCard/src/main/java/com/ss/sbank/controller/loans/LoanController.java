@@ -21,6 +21,9 @@ import com.ss.sbank.service.holder.HolderService;
 import com.ss.sbank.service.loans.LoanRecordService;
 import com.ss.sbank.service.loans.LoanService;
 import com.ss.sbank.service.loans.LoanTypeService;
+import com.ss.utopia.entities.Message;
+import com.ss.utopia.entities.Token;
+import com.ss.utopia.service.MessageService;
 
 @RestController
 @CrossOrigin
@@ -38,6 +41,9 @@ public class LoanController {
 
 	@Autowired
 	private LoanRecordService lrService;
+	
+	@Autowired
+	private MessageService messageService;
 
 	@GetMapping("/TEST-PLATFORM")
 	public List<Loan> getAll() {
@@ -80,6 +86,11 @@ public class LoanController {
 		LoanRecord lr = lrService.createLoanRecord(holder, l);
 		
 		System.out.println("Created loan record: " + lr);
+		
+		//Generate token, message, email
+		Token token = new Token("" + lr.getId());
+		Message message = new Message(token, holder.getEmail(), "http://localhost:8082/confirmLoan?token=");
+		messageService.sendMessage(message);
 		
 		//Return response
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);

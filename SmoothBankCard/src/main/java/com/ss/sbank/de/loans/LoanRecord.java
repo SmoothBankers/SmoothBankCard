@@ -25,6 +25,8 @@ public class LoanRecord {
 	@JoinColumn(name = "loan_id")
 	private Loan loan;
 	
+	private boolean active = false;
+	
 	@Id
 	@GeneratedValue
 	private int id;
