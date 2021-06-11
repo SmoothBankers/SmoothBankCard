@@ -42,8 +42,8 @@ public class LoanController {
 	@Autowired
 	private LoanRecordService lrService;
 	
-	@Autowired
-	private MessageService messageService;
+//	@Autowired
+//	private MessageService messageService;
 
 	@GetMapping("/TEST-PLATFORM")
 	public List<Loan> getAll() {
@@ -90,7 +90,7 @@ public class LoanController {
 		//Generate token, message, email
 		Token token = new Token("" + lr.getId());
 		Message message = new Message(token, holder.getEmail(), "http://localhost:8082/confirmLoan?token=");
-		messageService.sendMessage(message);
+		//messageService.sendMessage(message);
 		
 		//Return response
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
