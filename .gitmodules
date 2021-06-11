@@ -1,3 +1,4 @@
 [submodule "SmoothBank-Mailing"]
 	path = SmoothBank-Mailing
 	url = https://github.com/SmoothBankers/SmoothBank-Mailing.git
+	branch = dev
