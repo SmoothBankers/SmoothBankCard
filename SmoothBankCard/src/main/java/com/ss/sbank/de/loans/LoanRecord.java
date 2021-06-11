@@ -1,5 +1,6 @@
 package com.ss.sbank.de.loans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class LoanRecord {
 	@JoinColumn(name = "loan_id")
 	private Loan loan;
 	
+	@Column(name="active")
 	private boolean active = false;
 	
 	@Id

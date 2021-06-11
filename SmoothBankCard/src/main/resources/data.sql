@@ -66,7 +66,8 @@ CREATE TABLE loanRecord (
     FOREIGN KEY (holder_id)
         REFERENCES holder (id),
     FOREIGN KEY (loan_id)
-        REFERENCES loan (id)
+        REFERENCES loan (id),
+	active bool
 );
 CREATE TABLE cardRecord (
     holder_id INT,

@@ -21,9 +21,9 @@ import com.ss.sbank.service.holder.HolderService;
 import com.ss.sbank.service.loans.LoanRecordService;
 import com.ss.sbank.service.loans.LoanService;
 import com.ss.sbank.service.loans.LoanTypeService;
-import com.ss.utopia.entities.Message;
-import com.ss.utopia.entities.Token;
-import com.ss.utopia.service.MessageService;
+import com.ss.sbank.entities.Message;
+import com.ss.sbank.entities.Token;
+import com.ss.sbank.service.MessageService;
 
 @RestController
 @CrossOrigin
