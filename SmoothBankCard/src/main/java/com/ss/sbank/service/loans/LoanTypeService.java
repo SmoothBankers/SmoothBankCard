@@ -19,7 +19,6 @@ public class LoanTypeService {
 	public List<LoanType> getAllLoanTypes() {
 		List<LoanType> types = new ArrayList<>();
 		ltDAO.findAll().forEach(types::add);
-		ltDAO.findAll().forEach(System.out::print);
 		return types;
 	}
 	

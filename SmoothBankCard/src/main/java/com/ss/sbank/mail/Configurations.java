@@ -22,8 +22,8 @@ public class Configurations {
 		/**This is for testing purposes only! This is to be replaced with a new account
 		 * that exists for the sole purpose of sending mail and receiving test mail
 		 * REMOVE THIS DATA BEFORE ANY UPLOAD TO ANYWHERE, INCLUDING GITHUB**/
-		javaMailSender.setUsername("");
-		javaMailSender.setPassword("");
+		javaMailSender.setUsername("smoothbank.mailing@gmail.com");
+		javaMailSender.setPassword("GsN@=F7kFh5guuk^");
 		
 		Properties mailProperties = new Properties();
 		mailProperties.put("mail.smtp.auth",  "true");

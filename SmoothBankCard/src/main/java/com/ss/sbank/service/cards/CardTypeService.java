@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ss.sbank.dao.cards.CardTypeDAO;
@@ -18,12 +16,10 @@ public class CardTypeService {
 	@Autowired
 	private CardTypeDAO ctDAO;
 	
-	public ResponseEntity<List<CardType>> getAllCardTypes(){
-		System.out.println("Called CT Service getAll");
+	public List<CardType> getAllCardTypes(){
 		List<CardType> types = new ArrayList<>();
 		ctDAO.findAll().forEach(types::add);
-		ctDAO.findAll().forEach(System.out::println);
-		return new ResponseEntity<List<CardType>>(types, HttpStatus.OK);
+		return types;
 	}
 	
 	public CardType getById(Integer id) {

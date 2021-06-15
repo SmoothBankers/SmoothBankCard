@@ -1,4 +1,4 @@
-package com.ss.sbank.de.loans;
+package com.ss.sbank.de.cards;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,18 +12,18 @@ import com.ss.sbank.de.holder.Holder;
 
 import lombok.Data;
 
-@Table(name = "LOANRECORD")
+@Table(name = "CARDRECORD")
 @Entity
 @Data
-public class LoanRecord {
+public class CardRecord {
 	
 	@OneToOne
 	@JoinColumn(name = "holder_id")
 	private Holder holder;
 	
 	@OneToOne
-	@JoinColumn(name = "loan_id")
-	private Loan loan;
+	@JoinColumn(name = "card_id")
+	private Card loan;
 	
 	@Column(name="active")
 	private boolean active = false;
