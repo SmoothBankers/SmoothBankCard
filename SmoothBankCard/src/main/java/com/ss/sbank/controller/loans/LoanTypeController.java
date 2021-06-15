@@ -27,7 +27,7 @@ public class LoanTypeController {
 	
 	@GetMapping("/information/{id}")
 	public LoanType getSingleLoan(@PathVariable("id") int id) {
-		System.err.println("Called getMapping with id: " + id);
+//		System.err.println("Called getMapping with id: " + id);
 		return ltService.getById(id);
 	}
 

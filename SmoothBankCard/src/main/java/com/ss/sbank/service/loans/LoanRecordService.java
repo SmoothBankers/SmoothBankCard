@@ -1,5 +1,8 @@
 package com.ss.sbank.service.loans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,13 @@ public class LoanRecordService {
 		record.setLoan(loan);
 		return lrDAO.saveAndFlush(record);
 		
+		
+	}
+	
+	public List<LoanRecord> getAllLoanRecords(){
+		List<LoanRecord> records = new ArrayList<>();
+		lrDAO.findAll().forEach(records::add);
+		return records;
 	}
 	
 }

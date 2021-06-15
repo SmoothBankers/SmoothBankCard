@@ -11,9 +11,8 @@
 	</parent>
 	<groupId>com.ss</groupId>
 	<artifactId>SmoothBankCard</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>SmoothBankCard</name>
-	<description>Utopia under the SpringBoot framework</description>
 	<properties>
 		<java.version>11</java.version>
 		<start-class>com.ss.sbank.SmoothBankCardApplication</start-class>
@@ -60,6 +59,10 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -83,4 +86,5 @@
 		</plugins>
 	</build>
 
+	<description>Smoothbank cards and loans services</description>
 </project>
