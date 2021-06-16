@@ -23,7 +23,7 @@ public class CardRecord {
 	
 	@OneToOne
 	@JoinColumn(name = "card_id")
-	private Card loan;
+	private Card card;
 	
 	@Column(name="active")
 	private boolean active = false;

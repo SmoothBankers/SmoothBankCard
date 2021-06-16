@@ -89,7 +89,7 @@ public class LoanController {
 		
 		//Generate token, message, email
 		Token token = new Token("" + lr.getId());
-		Message message = new Message(token, holder.getEmail(), "http://localhost:8082/confirmLoan?token=");
+		Message message = new Message(token, holder.getEmail(), "http://localhost:8081/confirmLoan?token=");
 		messageService.sendMessage(message);
 		
 		//Return response

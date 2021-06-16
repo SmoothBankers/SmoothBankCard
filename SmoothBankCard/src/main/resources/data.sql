@@ -96,3 +96,9 @@ insert into loanType (id, title, description, rate) values
 
 insert into loan (id, balance, loan_type, holder_name) values
 (43210008765432104, 0.00, 1, 'Owen L. Holden');
+
+insert into holder (id, holder_name, home_phone, cell_phone, work_phone, email, ssn, address, zipcode, po_box, monthly_income) values
+(3, 'John Appleseed', '1234567', '7654321', '7162543', 'email@mail.com', '0123456789', 'some place', 56709, 'N/A', 900);
+
+insert into cardRecord(holder_id, card_id, id, active) values
+(3, 6507016719651110, 3, 1);
