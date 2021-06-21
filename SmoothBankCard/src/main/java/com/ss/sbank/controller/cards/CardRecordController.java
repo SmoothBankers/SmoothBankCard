@@ -23,7 +23,6 @@ public class CardRecordController {
 	
 	@GetMapping
 	public ResponseEntity<List<CardRecord>> getAllCardRecords() {
-		System.out.println("called get all card records");
 		return new ResponseEntity<>(crService.getAllCardRecords(), HttpStatus.OK);
 	}
 

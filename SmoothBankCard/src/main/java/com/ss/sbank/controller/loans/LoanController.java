@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ import com.ss.sbank.service.loans.LoanService;
 import com.ss.sbank.service.loans.LoanTypeService;
 import com.ss.sbank.mail.Message;
 import com.ss.sbank.mail.Token;
+import com.ss.sbank.mail.TokenService;
 import com.ss.sbank.mail.MessageService;
 
 @RestController
@@ -44,34 +46,18 @@ public class LoanController {
 	
 	@Autowired
 	private MessageService messageService;
+	
+	@Autowired
+	TokenService tService;
 
-	@GetMapping("/TEST-PLATFORM")
+	@GetMapping("/LOAN-TEST-PLATFORM")
 	public List<Loan> getAll() {
-		/**
-		 * Now normally I wouldn't make this method do anything because it is a major
-		 * security problem, but for the sake of demonstrating the program it will
-		 * remain. #########REMOVE THIS METHOD ENTIRELY BEFORE DEPLOYING
-		 * ANYWHERE##############
-		 */
 		return lservice.getAllLoans();
 	}
 
 	@SuppressWarnings("unchecked")
 	@PostMapping
-	public ResponseEntity<?> createLoan(@RequestBody Map<String, Object> payload) {
-		// System.out.println("Called create loan with payload: " + payload);
-		/**
-		 * TODO: get the loan information from the payload | payload.get("param_name") |
-		 * create a Holder object using the information from the payload create a
-		 * loanRecord using the loan and the newly-made holder send a confirmation email
-		 * with the confirmation link to the given email
-		 */
-		/**
-		 * Example payload {name=Parker Williams, home_phone=1234567,
-		 * cell_phone=7654321, work_phone=1762543,
-		 * email=parker.williams@smoothstack.com, ssn=0123456789, address=Home Address,
-		 * po_box=P.O Box, zipcode=27106, monthly_income=750, amount_requested=1250}
-		 */
+	public ResponseEntity<LoanRecord> createLoan(@RequestBody Map<String, Object> payload) {
 		// Process holder
 		Holder holder = hService.createHolder((String) payload.get("name"), (String) payload.get("home_phone"),
 				(String) payload.get("cell_phone"), (String) payload.get("work_phone"), (String) payload.get("email"),
@@ -89,10 +75,25 @@ public class LoanController {
 		
 		//Generate token, message, email
 		Token token = new Token("" + lr.getId());
-		Message message = new Message(token, holder.getEmail(), "http://localhost:8081/confirmLoan?token=");
+		Message message = new Message(token, holder.getEmail(), "http://localhost:3000/confirmLoan?token=");
 		messageService.sendMessage(message);
 		
 		//Return response
+		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
+	}
+	
+	@PutMapping
+	public ResponseEntity<LoanRecord> confirmLoan(@RequestBody Map<String, Object> payload){
+		Token token = tService.getToken((String) payload.get("token"));	
+		//System.out.println(token);
+		
+		LoanRecord lr = lrService.getLoanRecord(Integer.parseInt(token.getObjID()));
+		//System.out.println(lr);
+		
+		lr.setActive(true); // <==== Causes error for InvalidDefinitionException
+		
+		lrService.update(lr);
+		
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
 	}
 
