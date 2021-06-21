@@ -48,7 +48,7 @@ public class LoanController {
 	private MessageService messageService;
 	
 	@Autowired
-	TokenService tService;
+	private TokenService tService;
 
 	@GetMapping("/LOAN-TEST-PLATFORM")
 	public List<Loan> getAll() {

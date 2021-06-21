@@ -31,5 +31,13 @@ public class CardRecordService {
 		crDAO.findAll().forEach(records::add);
 		return records;
 	}
+
+	public CardRecord getCardRecord(int parseInt) {
+		return crDAO.getOne(parseInt);
+	}
+
+	public void update(CardRecord cr) {
+		crDAO.save(cr);		
+	}
 	
 }
