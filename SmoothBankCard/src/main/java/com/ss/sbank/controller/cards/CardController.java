@@ -51,7 +51,7 @@ public class CardController {
 	@Autowired
 	private HolderService hService;
 	
-	@GetMapping("/TEST-PLATFORM")
+	@GetMapping
 	public List<Card> getAll(){
 		/**
 		 * Now normally I wouldn't make this method do anything because it is a major security problem, but for
@@ -73,7 +73,7 @@ public class CardController {
 		
 		// Process card. TODO: This should actually take the users account, but for now use this as a stand-in
 		Card c = cService.createCard( new Random().nextInt(), 
-				ctService.getById( Integer.parseInt( (String) ((LinkedHashMap<String, Object>) payload.get("card")).get("id") ) ) ,
+				ctService.getById((Integer) ((LinkedHashMap<String, Object>) payload.get("card")).get("id")  ) ,
 				holder.getHolderName());
 
 		// Process LoanRecord
@@ -83,7 +83,7 @@ public class CardController {
 		
 		//Generate token, message, email
 		Token token = new Token("" + cr.getId());
-		Message message = new Message(token, holder.getEmail(), "http://localhost:3000/confirmLoan?token=");
+		Message message = new Message(token, holder.getEmail(), "http://localhost:3000/confirmCard?token=");
 		messageService.sendMessage(message);
 		
 		//Return response
