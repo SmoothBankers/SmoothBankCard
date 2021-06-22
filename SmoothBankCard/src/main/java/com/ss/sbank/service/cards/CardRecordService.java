@@ -17,19 +17,27 @@ public class CardRecordService {
 	@Autowired
 	CardRecordDAO crDAO;
 	
-	public CardRecord createLoanRecord(Holder holder, Card card) {
+	public CardRecord createCardRecord(Holder holder, Card card) {
 		CardRecord record = new CardRecord();
 		record.setHolder(holder);
-		record.setLoan(card);
+		record.setCard(card);
 		return crDAO.saveAndFlush(record);
 		
 		
 	}
 	
-	public List<CardRecord> getAllLoanRecords(){
+	public List<CardRecord> getAllCardRecords(){
 		List<CardRecord> records = new ArrayList<>();
 		crDAO.findAll().forEach(records::add);
 		return records;
+	}
+
+	public CardRecord getCardRecord(int parseInt) {
+		return crDAO.getOne(parseInt);
+	}
+
+	public void update(CardRecord cr) {
+		crDAO.save(cr);		
 	}
 	
 }

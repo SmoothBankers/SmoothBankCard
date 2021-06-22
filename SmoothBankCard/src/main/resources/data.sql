@@ -61,7 +61,7 @@ CREATE TABLE loan (
 
 CREATE TABLE loanRecord (
     holder_id INT,
-    loan_id INT,
+    loan_id BIGINT,
     id INT PRIMARY KEY,
     FOREIGN KEY (holder_id)
         REFERENCES holder (id),
@@ -96,3 +96,4 @@ insert into loanType (id, title, description, rate) values
 
 insert into loan (id, balance, loan_type, holder_name) values
 (43210008765432104, 0.00, 1, 'Owen L. Holden');
+

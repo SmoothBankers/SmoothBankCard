@@ -32,4 +32,12 @@ public class LoanRecordService {
 		return records;
 	}
 	
+	public LoanRecord getLoanRecord(Integer id) {
+		return lrDAO.getOne(id);
+	}
+	
+	public void update(LoanRecord lr) {
+		lrDAO.saveAndFlush(lr);
+	}
+	
 }

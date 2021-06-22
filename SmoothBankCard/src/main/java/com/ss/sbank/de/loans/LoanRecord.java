@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ss.sbank.de.holder.Holder;
 
 import lombok.Data;
@@ -15,6 +16,7 @@ import lombok.Data;
 @Table(name = "LOANRECORD")
 @Entity
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class LoanRecord {
 	
 	@OneToOne
@@ -26,10 +28,10 @@ public class LoanRecord {
 	private Loan loan;
 	
 	@Column(name="active")
-	private boolean active = false;
+	private Boolean active = false;
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 
 }
