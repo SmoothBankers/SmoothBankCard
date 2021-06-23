@@ -67,7 +67,8 @@ CREATE TABLE loanRecord (
         REFERENCES holder (id),
     FOREIGN KEY (loan_id)
         REFERENCES loan (id),
-	active BOOL
+	active BOOL,
+    sign_up_date DATETIME
 );
 CREATE TABLE cardRecord (
     holder_id INT,
@@ -77,7 +78,8 @@ CREATE TABLE cardRecord (
         REFERENCES holder (id),
     FOREIGN KEY (card_id)
         REFERENCES card (id),
-	active BOOL
+	active BOOL,
+    sign_up_date DATETIME
 );
 
 insert into cardType (id, title, description, rate) values 

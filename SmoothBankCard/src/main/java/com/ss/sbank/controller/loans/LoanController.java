@@ -1,5 +1,6 @@
 package com.ss.sbank.controller.loans;
 
+import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,10 +44,10 @@ public class LoanController {
 
 	@Autowired
 	private LoanRecordService lrService;
-	
+
 	@Autowired
 	private MessageService messageService;
-	
+
 	@Autowired
 	private TokenService tService;
 
@@ -64,36 +65,39 @@ public class LoanController {
 				(String) payload.get("ssn"), (String) payload.get("address"), (String) payload.get("po_box"),
 				Integer.parseInt((String) payload.get("zipcode")),
 				Integer.parseInt((String) payload.get("monthly_income")));
-		
+
 		// Process Loan
-		Loan l = lservice.createLoan(Double.parseDouble((String) payload.get("amount_requested")), (String) payload.get("name"), ltService.getById( (Integer) ((LinkedHashMap<String, Object>) payload.get("loan")).get("id")));
+		Loan l = lservice.createLoan(Double.parseDouble((String) payload.get("amount_requested")),
+				(String) payload.get("name"),
+				ltService.getById((Integer) ((LinkedHashMap<String, Object>) payload.get("loan")).get("id")));
 
 		// Process LoanRecord
 		LoanRecord lr = lrService.createLoanRecord(holder, l);
-		
+		lr.setSignUpDate(new Date(System.currentTimeMillis()));
+
 		System.out.println("Created loan record: " + lr);
-		
-		//Generate token, message, email
+
+		// Generate token, message, email
 		Token token = new Token("" + lr.getId());
 		Message message = new Message(token, holder.getEmail(), "http://localhost:3000/confirmLoan?token=");
 		messageService.sendMessage(message);
-		
-		//Return response
+
+		// Return response
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<LoanRecord> confirmLoan(@RequestBody Map<String, Object> payload){
-		Token token = tService.getToken((String) payload.get("token"));	
-		//System.out.println(token);
-		
+	public ResponseEntity<LoanRecord> confirmLoan(@RequestBody Map<String, Object> payload) {
+		Token token = tService.getToken((String) payload.get("token"));
+		// System.out.println(token);
+
 		LoanRecord lr = lrService.getLoanRecord(Integer.parseInt(token.getObjID()));
-		//System.out.println(lr);
-		
+		// System.out.println(lr);
+
 		lr.setActive(true); // <==== Causes error for InvalidDefinitionException
-		
+
 		lrService.update(lr);
-		
+
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
 	}
 

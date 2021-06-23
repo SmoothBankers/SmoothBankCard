@@ -1,5 +1,7 @@
 package com.ss.sbank.de.loans;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,4 +36,7 @@ public class LoanRecord {
 	@GeneratedValue
 	private Integer id;
 
+	@Column(name = "sign_up_date")
+	private Date signUpDate;
+	
 }
