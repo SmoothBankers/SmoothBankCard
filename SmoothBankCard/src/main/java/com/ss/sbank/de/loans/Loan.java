@@ -3,7 +3,6 @@ package com.ss.sbank.de.loans;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,8 +19,6 @@ public class Loan {
 
 	@Id
 	@GeneratedValue
-//	@GenericGenerator(name = "loan_id", strategy = "com.ss.sbank.generator.IDGenerator")
-//	@GeneratedValue(generator="loan_id")
 	private Long id;
 	
 	@Column(name = "balance")
