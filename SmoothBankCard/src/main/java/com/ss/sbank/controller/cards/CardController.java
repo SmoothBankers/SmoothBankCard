@@ -53,14 +53,14 @@ public class CardController {
 	private HolderService hService;
 
 	@GetMapping
-	public List<Card> getAll() {
+	public ResponseEntity<List<Card>> getAll() {
 		/**
 		 * Now normally I wouldn't make this method do anything because it is a major
 		 * security problem, but for the sake of demonstrating the program it will
 		 * remain. #########REMOVE THIS METHOD ENTIRELY BEFORE DEPLOYING
 		 * ANYWHERE##############
 		 */
-		return cService.getAllCards();
+		return new ResponseEntity<List<Card>>(cService.getAllCards(),HttpStatus.OK);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -82,8 +82,6 @@ public class CardController {
 		// Process LoanRecord
 		CardRecord cr = crService.createCardRecord(holder, c);
 		cr.setSignUpDate(new Date(System.currentTimeMillis()));
-
-		System.out.println("Created loan record: " + cr);
 
 		// Generate token, message, email
 		Token token = new Token("" + cr.getId());

@@ -16,7 +16,7 @@ CREATE TABLE holder (
     cell_phone VARCHAR(10),
     work_phone VARCHAR(14),
     email VARCHAR(127),
-    ssn VARCHAR(10),
+    ssn VARCHAR(9),
     address VARCHAR(127),
     zipcode INT,
     po_box VARCHAR(127),
@@ -98,4 +98,3 @@ insert into loanType (id, title, description, rate) values
 
 insert into loan (id, balance, loan_type, holder_name) values
 (43210008765432104, 0.00, 1, 'Owen L. Holden');
-
