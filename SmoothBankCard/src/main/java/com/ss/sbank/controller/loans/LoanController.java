@@ -19,14 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ss.sbank.de.holder.Holder;
 import com.ss.sbank.de.loans.Loan;
 import com.ss.sbank.de.loans.LoanRecord;
+import com.ss.sbank.entities.Message;
+import com.ss.sbank.entities.Token;
+import com.ss.sbank.service.MessageService;
+import com.ss.sbank.service.TokenService;
 import com.ss.sbank.service.holder.HolderService;
 import com.ss.sbank.service.loans.LoanRecordService;
 import com.ss.sbank.service.loans.LoanService;
 import com.ss.sbank.service.loans.LoanTypeService;
-import com.ss.sbank.mail.Message;
-import com.ss.sbank.mail.Token;
-import com.ss.sbank.mail.TokenService;
-import com.ss.sbank.mail.MessageService;
+
 
 @RestController
 @CrossOrigin
