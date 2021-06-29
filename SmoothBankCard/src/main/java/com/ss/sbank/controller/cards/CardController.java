@@ -1,6 +1,7 @@
 package com.ss.sbank.controller.cards;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +61,7 @@ public class CardController {
 		 * remain. #########REMOVE THIS METHOD ENTIRELY BEFORE DEPLOYING
 		 * ANYWHERE##############
 		 */
-		return new ResponseEntity<List<Card>>(cService.getAllCards(),HttpStatus.OK);
+		return new ResponseEntity<List<Card>>(cService.getAllCards(), HttpStatus.OK);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -105,6 +106,25 @@ public class CardController {
 		crService.update(cr);
 
 		return new ResponseEntity<CardRecord>(cr, HttpStatus.CREATED);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Card>> getLoansByEmail(@RequestBody Map<String, Object> payload) {
+		// payload should just be the email string itself on account of
+		// axios.get(`http://localhost:8081/api/loans/`, email)
+		String email = (String) payload.get("email");
+
+		// get all loan records that have the holder with that email
+		List<CardRecord> records = crService.getAllWithEmail(email);
+
+		// Pull loans from the records
+		List<Card> cards = new ArrayList<>();
+		records.forEach(r -> {
+			cards.add(r.getCard());
+		});
+
+		// return loans
+		return new ResponseEntity<List<Card>>(cards, HttpStatus.OK);
 	}
 
 }

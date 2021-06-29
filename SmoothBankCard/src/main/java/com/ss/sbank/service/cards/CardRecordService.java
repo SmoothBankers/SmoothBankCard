@@ -16,17 +16,16 @@ public class CardRecordService {
 
 	@Autowired
 	CardRecordDAO crDAO;
-	
+
 	public CardRecord createCardRecord(Holder holder, Card card) {
 		CardRecord record = new CardRecord();
 		record.setHolder(holder);
 		record.setCard(card);
 		return crDAO.saveAndFlush(record);
-		
-		
+
 	}
-	
-	public List<CardRecord> getAllCardRecords(){
+
+	public List<CardRecord> getAllCardRecords() {
 		List<CardRecord> records = new ArrayList<>();
 		crDAO.findAll().forEach(records::add);
 		return records;
@@ -37,7 +36,25 @@ public class CardRecordService {
 	}
 
 	public void update(CardRecord cr) {
-		crDAO.save(cr);		
+		crDAO.save(cr);
 	}
-	
+
+	/**
+	 * Takes an email and returns all LoanRecord entries that have that email
+	 * assigned to the holder of the loan records. There are some concerns about the
+	 * speed of this operation but, since it is necessary to check every entry, O(n)
+	 * should be about as good as it can get, which it currently is.
+	 * 
+	 * @param email The email to restrict results to
+	 * @return A list of all LoanRecords with the given email
+	 */
+	public List<CardRecord> getAllWithEmail(String email) {
+		List<CardRecord> records = new ArrayList<>();
+		crDAO.findAll().forEach(record -> {
+			if (record.getHolder().getEmail().equals(email))
+				records.add(record);
+		});
+		return records;
+	}
+
 }

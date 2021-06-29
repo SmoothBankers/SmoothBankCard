@@ -1,6 +1,7 @@
 package com.ss.sbank.controller.loans;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,6 @@ import com.ss.sbank.service.holder.HolderService;
 import com.ss.sbank.service.loans.LoanRecordService;
 import com.ss.sbank.service.loans.LoanService;
 import com.ss.sbank.service.loans.LoanTypeService;
-
 
 @RestController
 @CrossOrigin
@@ -100,6 +100,25 @@ public class LoanController {
 		lrService.update(lr);
 
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Loan>> getLoansByEmail(@RequestBody Map<String, Object> payload) {
+		// payload should just be the email string itself on account of
+		// axios.get(`http://localhost:8081/api/loans/`, email)
+		String email = (String) payload.get("email");
+		
+		// get all loan records that have the holder with that email
+		List<LoanRecord> records = lrService.getAllWithEmail(email);
+		
+		// Pull loans from the records
+		List<Loan> loans = new ArrayList<>();
+		records.forEach(r -> {
+			loans.add(r.getLoan());
+		});
+		
+		// return loans
+		return new ResponseEntity<List<Loan>>(loans, HttpStatus.OK);
 	}
 
 }
