@@ -22,7 +22,6 @@ public class CardTypeController {
 
 	@GetMapping
 	public List<CardType> getAllCardTypes() {
-		System.out.println("CT GET ALL CALLED");
 		return ctService.getAllCardTypes();
 	}
 	

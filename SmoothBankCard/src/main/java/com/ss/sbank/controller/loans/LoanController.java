@@ -52,7 +52,7 @@ public class LoanController {
 	@Autowired
 	private TokenService tService;
 
-	@GetMapping("/LOAN-TEST-PLATFORM")
+	@GetMapping("/all")
 	public List<Loan> getAll() {
 		return lservice.getAllLoans();
 	}
@@ -66,22 +66,34 @@ public class LoanController {
 				(String) payload.get("ssn"), (String) payload.get("address"), (String) payload.get("po_box"),
 				Integer.parseInt((String) payload.get("zipcode")),
 				Integer.parseInt((String) payload.get("monthly_income")));
+		
+		//System.out.println("holder created");
 
 		// Process Loan
 		Loan l = lservice.createLoan(Double.parseDouble((String) payload.get("amount_requested")),
 				(String) payload.get("name"),
 				ltService.getById((Integer) ((LinkedHashMap<String, Object>) payload.get("loan")).get("id")));
+		
+		//System.out.println("loan created");
 
 		// Process LoanRecord
 		LoanRecord lr = lrService.createLoanRecord(holder, l);
 		lr.setSignUpDate(new Date(System.currentTimeMillis()));
 
-		System.out.println("Created loan record: " + lr);
+		//System.out.println("Created loan record: " + lr);
 
 		// Generate token, message, email
 		Token token = new Token("" + lr.getId());
+		
+		//System.out.println("token created");
+		
 		Message message = new Message(token, holder.getEmail(), "http://localhost:3000/confirmLoan?token=");
+		
+		//System.out.println("message created");
+		
 		messageService.sendMessage(message);
+		
+		//System.out.println("message sent");
 
 		// Return response
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
@@ -92,7 +104,7 @@ public class LoanController {
 		Token token = tService.getToken((String) payload.get("token"));
 		// System.out.println(token);
 
-		LoanRecord lr = lrService.getLoanRecord(Integer.parseInt(token.getObjID()));
+		LoanRecord lr = lrService.getLoanRecord(Integer.parseInt(token.getObjId()));
 		// System.out.println(lr);
 
 		lr.setActive(true); // <==== Causes error for InvalidDefinitionException

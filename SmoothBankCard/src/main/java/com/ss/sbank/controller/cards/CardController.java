@@ -53,7 +53,7 @@ public class CardController {
 	@Autowired
 	private HolderService hService;
 
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<List<Card>> getAll() {
 		/**
 		 * Now normally I wouldn't make this method do anything because it is a major
@@ -98,7 +98,7 @@ public class CardController {
 		Token token = tService.getToken((String) payload.get("token"));
 		// System.out.println(token);
 
-		CardRecord cr = crService.getCardRecord(Integer.parseInt(token.getObjID()));
+		CardRecord cr = crService.getCardRecord(Integer.parseInt(token.getObjId()));
 		// System.out.println(lr);
 
 		cr.setActive(true); // <==== Causes error for InvalidDefinitionException

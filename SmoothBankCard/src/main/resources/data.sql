@@ -98,3 +98,14 @@ insert into loanType (id, title, description, rate) values
 
 insert into loan (id, balance, loan_type, holder_name) values
 (43210008765432104, 0.00, 1, 'Owen L. Holden');
+
+DROP TABLE IF EXISTS token;
+
+
+CREATE TABLE token (
+    sequence VARCHAR(48) PRIMARY KEY,
+    obj_id VARCHAR(127),
+    ttl INT,
+    time_created DATETIME
+);
+
