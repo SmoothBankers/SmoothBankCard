@@ -40,4 +40,22 @@ public class LoanRecordService {
 		lrDAO.saveAndFlush(lr);
 	}
 	
+	/**
+	 * Takes an email and returns all LoanRecord entries that have
+	 * that email assigned to the holder of the loan records.
+	 * There are some concerns about the speed of this operation
+	 * but, since it is necessary to check every entry, O(n)
+	 * should be about as good as it can get, which it currently is.
+	 * @param email The email to restrict results to
+	 * @return A list of all LoanRecords with the given email
+	 */
+	public List<LoanRecord> getAllWithEmail(String email){
+		List<LoanRecord> records = new ArrayList<>();
+		lrDAO.findAll().forEach(record -> {
+			if(record.getHolder().getEmail().equals(email))
+				records.add(record);
+		});
+		return records;
+	}
+	
 }

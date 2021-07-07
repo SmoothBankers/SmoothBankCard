@@ -9,6 +9,7 @@ import LoanTypeContainer from './components/LoanTypeContainer';
 import CardContainer from './components/CardContainer';
 import LoanContainer from './components/LoanContainer';
 import LoanRegistration from './components/LoanRegistration';
+import LoanConfirmationPage from './components/LoanConfirmationPage';
 
 function App() {
   return(
@@ -22,6 +23,7 @@ function App() {
             <Route path='/cards' component={CardContainer}/>
             <Route path='/loans' component={LoanContainer}/>
             <Route path='/registerForLoan' component = {LoanRegistration} />
+            <Route path='/confirmLoan' component = {LoanConfirmationPage} />
         </Switch>
       </Provider>        
       </BrowserRouter>
