@@ -29,6 +29,8 @@ import com.ss.sbank.service.cards.CardRecordService;
 import com.ss.sbank.service.cards.CardService;
 import com.ss.sbank.service.cards.CardTypeService;
 import com.ss.sbank.service.holder.HolderService;
+import com.ss.sbank.user.entity.User;
+import com.ss.sbank.user.service.UserService;
 
 @RestController
 @CrossOrigin
@@ -52,6 +54,9 @@ public class CardController {
 
 	@Autowired
 	private HolderService hService;
+
+	@Autowired
+	private UserService uService;
 
 	@GetMapping("/all")
 	public ResponseEntity<List<Card>> getAll() {
@@ -108,13 +113,22 @@ public class CardController {
 		return new ResponseEntity<CardRecord>(cr, HttpStatus.CREATED);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<Card>> getLoansByEmail(@RequestBody Map<String, Object> payload) {
-		// payload should just be the email string itself on account of
-		// axios.get(`http://localhost:8081/api/loans/`, email)
-		String email = (String) payload.get("email");
+	@PostMapping("/user")
+	public ResponseEntity<List<CardRecord>> getCardsByEmail(@RequestBody Map<String, Object> payload) {
+		String name = (String) payload.get("username");
+		System.out.println("Name: " + name);
 
-		// get all loan records that have the holder with that email
+		User user = null;
+		for (User u : uService.findAllUsers()) {
+			System.out.println(u);
+			if (u.getUsername().equals(name))
+				user = u;
+		}
+
+		if(user == null)
+			return new ResponseEntity<List<CardRecord>>(new ArrayList<CardRecord>(), HttpStatus.OK);
+		
+		String email = user.getEmail();
 		List<CardRecord> records = crService.getAllWithEmail(email);
 
 		// Pull loans from the records
@@ -124,7 +138,7 @@ public class CardController {
 		});
 
 		// return loans
-		return new ResponseEntity<List<Card>>(cards, HttpStatus.OK);
+		return new ResponseEntity<List<CardRecord>>(records, HttpStatus.OK);
 	}
 
 }

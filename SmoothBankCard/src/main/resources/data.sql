@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS cardType;
 DROP TABLE IF EXISTS loan;
 DROP TABLE IF EXISTS loanType;
 
+
+
 CREATE TABLE holder (
     id INT PRIMARY KEY,
     holder_name VARCHAR(127),
@@ -68,6 +70,7 @@ CREATE TABLE loanRecord (
     FOREIGN KEY (loan_id)
         REFERENCES loan (id),
 	active BOOL,
+    confirmed BOOL,
     sign_up_date DATETIME
 );
 CREATE TABLE cardRecord (
@@ -79,6 +82,7 @@ CREATE TABLE cardRecord (
     FOREIGN KEY (card_id)
         REFERENCES card (id),
 	active BOOL,
+    confirmed BOOL,
     sign_up_date DATETIME
 );
 
@@ -101,7 +105,6 @@ insert into loan (id, balance, loan_type, holder_name) values
 
 DROP TABLE IF EXISTS token;
 
-
 CREATE TABLE token (
     sequence VARCHAR(48) PRIMARY KEY,
     obj_id VARCHAR(127),
@@ -109,3 +112,25 @@ CREATE TABLE token (
     time_created DATETIME
 );
 
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_roles;
+
+CREATE TABLE user_roles (
+  id INT PRIMARY KEY,
+  role VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT  PRIMARY KEY,
+  first_name VARCHAR(250) NOT NULL,
+  last_name VARCHAR(250) NOT NULL,
+  username VARCHAR(250) NOT NULL UNIQUE,
+  password VARCHAR(250) NOT NULL,
+  email VARCHAR(250) NOT NULL,
+  role_id INT NOT NULL,
+  FOREIGN KEY (role_id) REFERENCES user_roles(id)
+);
+
+
+INSERT INTO user_roles (id, role) VALUES (1, 'ADMIN');
+INSERT INTO user_roles (id, role) VALUES (2, 'USER');

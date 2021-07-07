@@ -32,6 +32,9 @@ public class LoanRecord {
 	@Column(name="active")
 	private Boolean active = false;
 	
+	@Column(name="confirmed")
+	private boolean confirmed = false;
+	
 	@Id
 	@GeneratedValue
 	private Integer id;

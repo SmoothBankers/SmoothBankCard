@@ -32,6 +32,9 @@ public class CardRecord {
 	@Column(name="active")
 	private boolean active = false;
 	
+	@Column(name="confirmed")
+	private boolean confirmed = false;
+	
 	@Id
 	@GeneratedValue
 	private Integer id;

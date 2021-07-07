@@ -28,6 +28,8 @@ import com.ss.sbank.service.holder.HolderService;
 import com.ss.sbank.service.loans.LoanRecordService;
 import com.ss.sbank.service.loans.LoanService;
 import com.ss.sbank.service.loans.LoanTypeService;
+import com.ss.sbank.user.entity.User;
+import com.ss.sbank.user.service.UserService;
 
 @RestController
 @CrossOrigin
@@ -52,11 +54,22 @@ public class LoanController {
 	@Autowired
 	private TokenService tService;
 
+	@Autowired
+	private UserService uService;
+
 	@GetMapping("/all")
 	public List<Loan> getAll() {
 		return lservice.getAllLoans();
 	}
 
+	/**
+	 * There is a distinct possibility that this can be handled in a far cleaner
+	 * way, but for now it is known to work so it will remain. Perhaps in the future
+	 * it can be redone as createLoan(@RequestBody Holder h, Loan l, Etc.)
+	 * 
+	 * @param payload
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@PostMapping
 	public ResponseEntity<LoanRecord> createLoan(@RequestBody Map<String, Object> payload) {
@@ -66,34 +79,34 @@ public class LoanController {
 				(String) payload.get("ssn"), (String) payload.get("address"), (String) payload.get("po_box"),
 				Integer.parseInt((String) payload.get("zipcode")),
 				Integer.parseInt((String) payload.get("monthly_income")));
-		
-		//System.out.println("holder created");
+
+		// System.out.println("holder created");
 
 		// Process Loan
 		Loan l = lservice.createLoan(Double.parseDouble((String) payload.get("amount_requested")),
 				(String) payload.get("name"),
 				ltService.getById((Integer) ((LinkedHashMap<String, Object>) payload.get("loan")).get("id")));
-		
-		//System.out.println("loan created");
+
+		// System.out.println("loan created");
 
 		// Process LoanRecord
 		LoanRecord lr = lrService.createLoanRecord(holder, l);
 		lr.setSignUpDate(new Date(System.currentTimeMillis()));
 
-		//System.out.println("Created loan record: " + lr);
+		// System.out.println("Created loan record: " + lr);
 
 		// Generate token, message, email
 		Token token = new Token("" + lr.getId());
-		
-		//System.out.println("token created");
-		
+
+		// System.out.println("token created");
+
 		Message message = new Message(token, holder.getEmail(), "http://localhost:3000/confirmLoan?token=");
-		
-		//System.out.println("message created");
-		
+
+		// System.out.println("message created");
+
 		messageService.sendMessage(message);
-		
-		//System.out.println("message sent");
+
+		// System.out.println("message sent");
 
 		// Return response
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
@@ -114,23 +127,31 @@ public class LoanController {
 		return new ResponseEntity<LoanRecord>(lr, HttpStatus.CREATED);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<Loan>> getLoansByEmail(@RequestBody Map<String, Object> payload) {
-		// payload should just be the email string itself on account of
-		// axios.get(`http://localhost:8081/api/loans/`, email)
-		String email = (String) payload.get("email");
-		
-		// get all loan records that have the holder with that email
+	@PostMapping("/user")
+	public ResponseEntity<List<LoanRecord>> getLoansByEmail(@RequestBody Map<String, Object> payload) {
+		String name = (String) payload.get("username");
+
+		User user = null;
+		for (User u : uService.findAllUsers()) {
+			System.out.println(u);
+			if (u.getUsername().equals(name))
+				user = u;
+		}
+		if (user == null)
+			return new ResponseEntity<List<LoanRecord>>(new ArrayList<LoanRecord>(), HttpStatus.OK);
+
+		String email = user.getEmail();
+		System.out.println("Getting loans with associated email: " + email);
 		List<LoanRecord> records = lrService.getAllWithEmail(email);
-		
+
 		// Pull loans from the records
 		List<Loan> loans = new ArrayList<>();
 		records.forEach(r -> {
 			loans.add(r.getLoan());
 		});
-		
+
 		// return loans
-		return new ResponseEntity<List<Loan>>(loans, HttpStatus.OK);
+		return new ResponseEntity<List<LoanRecord>>(records, HttpStatus.OK);
 	}
 
 }
