@@ -37,11 +37,19 @@ public class CardRecordController {
 	public ResponseEntity<CardRecord> getOneCardRecord(@PathVariable Integer id) {
 		return new ResponseEntity<CardRecord>(crService.getCardRecord(id), HttpStatus.OK);
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<CardRecord> updateRecord(@RequestBody CardRecord payload) {
 
 		System.out.println("Update Record with payload: " + payload);
+		// Not getting called, but when sending a PUT request to /api/cardRecords some
+		// response is being received by the front end. Is it being sent by this or is
+		// it an automatic one sent by spring itself? Is it a product of not being
+		// logged in to an admin account? This service doesn't require being signed
+		// in right now, but it could be an effect of the SecurityConfig now being the
+		// authorizer after integration. If it is the new Auth, wouldn't the other
+		// methods be failing as well? 
+
 //		CardRecord cr = crService.getCardRecord(Integer.parseInt((String) payload.get("id")));
 //		cr.getHolder().setAddress((String) ((Map<String, Object>) payload.get("holder")).get("address"));
 //		cr.getHolder().setCellPhone((String) ((Map<String, Object>) payload.get("holder")).get("cellPhone"));

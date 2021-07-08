@@ -99,7 +99,7 @@ public class CardController {
 	}
 
 	@PutMapping
-	public ResponseEntity<CardRecord> confirmLoan(@RequestBody Map<String, Object> payload) {
+	public ResponseEntity<String> confirmLoan(@RequestBody Map<String, Object> payload) {
 		Token token = tService.getToken((String) payload.get("token"));
 		// System.out.println(token);
 
@@ -110,7 +110,7 @@ public class CardController {
 
 		crService.update(cr);
 
-		return new ResponseEntity<CardRecord>(cr, HttpStatus.CREATED);
+		return new ResponseEntity<String>("Loan confirmed", HttpStatus.CREATED);
 	}
 
 	@PostMapping("/user")
